@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login and Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <label class="logo">LOGO</label>
+      <ul>
+        <li><a class="active" href="homepage">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <!-- <li><a href="#">Services </a></li> -->
+        <li><a href="#">Contact Us</a></li>
+       
+      </ul>
+    </nav>
+    <section>
+      <section class="login" > 
+  
+    <div class="container">
+      <input type="checkbox" id="flip">
+      <div class="cover">
+        <div class="front">
+          <img src="https://bsmedia.business-standard.com/_media/bs/img/article/2020-11/08/full/1604849737-8375.jpg" alt="">
+           
+        </div>
+        <div class="back">
+          <img src="https://bsmedia.business-standard.com/_media/bs/img/article/2020-11/08/full/1604849737-8375.jpg" alt="">
+          
+        </div>
+      </div>
+      <div class="forms">
+          <div class="form-content">
+            <div class="login-form">
+              <div class="title">Login</div>
+            <form action="{{ url_for('login') }}" method="post">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" name="userid" placeholder="UserID" required>
+                </div>
+                 <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" name="emailid" placeholder="Email" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" name="password" placeholder="password" required>
+                </div>
+                <div class="text"><a href="#">Forgot password?</a></div>
+                <div class="button input-box">
+                  <input type="submit" value="Submit">
+                </div>
+                <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label></div>
+              </div>
+                  <div class="msg">{{ msg }}</div>
+          </form>
+        </div>
+          <div class="signup-form">
+            <div class="title">Signup</div>
+          <form action="{{ url_for('register') }}" method="post">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="userid" placeholder="Enter your userid" required>
+                </div>
+                   <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" name="emailid" placeholder="Enter your email" required>
+                </div>
+                   <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" name="password" placeholder="Enter your password" required>
+                </div>
+                 <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="firstname" placeholder="Enter your firstname" required>
+                </div>
+                 <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="lastname" placeholder="Enter your lastname" required>
+                </div>
+                 <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="status" placeholder="Enter your status" required>
+                </div>
+                 <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input type="text" name="types" placeholder="Enter your type" required>
+                </div>
+                 <div class="input-box">
+                 <i class="fas fa-calendar-week"></i>
+                     <input type="date" name="doj" placeholder="Enter your DOJ" required>
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-phone"></i>
+                  <input type="text" name="phonenumber" placeholder="Enter your phonenumber" required>
+                </div>
+                <div class="button input-box">
+                  <input type="submit" value="Submit">
+                </div>
+                <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+                  </div>
+               <div class="msg">{{ msg }}</div>
+                  </form>
+                  </div>
+                  </div>
+                  </div>
+                  </div>
+         </section>
+                  </section>
+                   
+  </body>
+</html>

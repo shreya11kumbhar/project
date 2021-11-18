@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='customer_details.css') }}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <title>Customer Details</title>
+</head>
+<body>
+<div id="layer">
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
+        <label class="logo">LOGO</label>
+        <ul>
+          <li><a class="active" href="homepage">Home</a></li>
+        </ul>
+      </nav>
+    <button  id="contact" class="openBtn" onclick="openSearch()">New Customer</button>
+</div>
+<div id="contactForm" class="overlay">
+     <span class="closebtn" id="closebtnid" onclick="closeSearch()" title="Close Form">×</span>
+  <form action="{{ url_for('details') }}" method="post">
+    <input name="firstname" placeholder="First Name" type="text" required />
+      <input name="middlename" placeholder="Middle Name" type="text" required />
+      <input name="lastname" placeholder="Last Name" type="text" required />
+      <input name="cpf_no" placeholder="CPF No" type="text" required />
+      <input name="DOB" placeholder="Date of Birth" type="date" required />
+      <input name="phonenumber" placeholder="Phone no" type="text" required />
+      <input name="emailid" placeholder="Email" type="email" required />
+      <input name="DOJ" placeholder="Date of joining" type="date" required />
+      <input name="DOE" placeholder="DOE" type="date" required />
+      <input name="total_share_amt" placeholder="Total Share amount" type="text" required />
+      <input name="total_lt_out" placeholder="Total loan " type="text" required />
+      <input name="total_st_out" placeholder="Total st amount" type="text" required />
+      <input class="formBtn" type="submit" value="submit" />
+      <input class="formBtn" type="reset"  value="reset"/>
+  </form>
+       <div class="msg">{{ msg }}</div>
+  </div>
+
+<script>
+$("#contact").click(function(){
+  $('#layer').css("filter","blur(20px)");
+});
+$("#closebtnid").click(function(){
+      $("#layer").css("filter","");
+    });
+function openSearch() {
+  document.getElementById("contact").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("contactForm").style.display = "none";
+}
+    $(function () {
+  // contact form animations
+  $("#contact").click(function () {
+    $("#contactForm").fadeToggle();
+  });
+  $(document).mouseup(function (e) {
+    var container = $("#contactForm");
+
+    if (
+      !container.is(e.target) && // if the target of the click isn't the container...
+      container.has(e.target).length === 0
+    ) {
+      // ... nor a descendant of the container
+      container.fadeOut();
+    }
+  });
+});
+</script>
+</body>
+</html>
