@@ -23,28 +23,112 @@
           <li><a class="active" href="homepage">Home</a></li>
         </ul>
       </nav>
-    <button  id="contact" class="openBtn" onclick="openSearch()">New Customer</button>
+    <button  id="contact" class="openBtn" onclick="openForm()">New Customer</button>
+     <button   id="search" class="openBtn" onclick="openSearch()">Search Customer</button>
 </div>
 <div id="contactForm" class="overlay">
-     <span class="closebtn" id="closebtnid" onclick="closeSearch()" title="Close Form">×</span>
-  <form action="{{ url_for('details') }}" method="post">
-    <input name="firstname" placeholder="First Name" type="text" required />
-      <input name="middlename" placeholder="Middle Name" type="text" required />
-      <input name="lastname" placeholder="Last Name" type="text" required />
-      <input name="cpf_no" placeholder="CPF No" type="text" required />
-      <input name="DOB" placeholder="Date of Birth" type="date" required />
-      <input name="phonenumber" placeholder="Phone no" type="text" required />
-      <input name="emailid" placeholder="Email" type="email" required />
-      <input name="DOJ" placeholder="Date of joining" type="date" required />
-      <input name="DOE" placeholder="DOE" type="date" required />
-      <input name="total_share_amt" placeholder="Total Share amount" type="text" required />
-      <input name="total_lt_out" placeholder="Total loan " type="text" required />
-      <input name="total_st_out" placeholder="Total st amount" type="text" required />
-      <input class="formBtn" type="submit" value="submit" />
+     <span class="closebtn" id="closebtnid" onclick="closeForm()" title="Close Form">×</span>
+ <form action="{{ url_for('details') }}" method="post">
+      <table>
+          <tr>
+              <td>Firstname</td>
+              <td> <input name="firstname"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Middlename</td>
+              <td> <input name="middlname"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Lastname</td>
+              <td> <input name="lastname"  type="text" required /></td>
+          </tr>
+          <tr>
+              <td>CPF_No</td>
+              <td><input name="cpf_no" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Date Of Birth</td>
+              <td> <input name="DOB" type="date" required /></td>
+          </tr>
+          <tr>
+              <td>Phone number</td>
+              <td> <input name="phonenumber"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Email ID</td>
+              <td><input name="emailid" type="email" required /></td>
+          </tr>
+          <tr>
+              <td>Date Of Joining</td>
+              <td><input name="DOJ" type="date" required /></td>
+          </tr>
+          <tr>
+              <td>DOE</td>
+              <td> <input name="DOE" type="date" required /></td>
+          </tr>
+          <tr>
+              <td>Total Share Amt</td>
+              <td> <input name="total_share_amt" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Total Lt Amt</td>
+              <td> <input name="total_lt_out"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Total St Amt</td>
+              <td><input name="total_st_out"  type="text" required /></td>
+          </tr>
+
+      </table>
+       <input class="formBtn" type="submit" value="submit" />
       <input class="formBtn" type="reset"  value="reset"/>
   </form>
        <div class="msg">{{ msg }}</div>
   </div>
+<div id="mysearch" class="search-overlay">
+  <span id="close" class="close" onclick="closeSearch()" title="Close Search">×</span>
+  <div class="overlay-content">
+    <form action="{{ url_for('search') }}" method="POST">
+      <input type="text" placeholder="Search.." name="cpf_no">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+<div>
+    <table border = 1>
+         <thead>
+            <td>Firstname</td>
+            <td>Middlename</td>
+            <td>Lastname</td>
+            <td>cpf_no</td>
+            <td>DOB</td>
+            <td>phonenumber</td>
+            <td>emailid</td>
+            <td>DOJ</td>
+            <td>DOE</td>
+            <td>Total Share Amount</td>
+            <td>Total Loan Amount</td>
+            <td>Total St AMount</td>
+         </thead>
+
+         {% for row in rows %}
+            <tr>
+               <td>{{row["firstname"]}}</td>
+               <td>{{row["middlename"]}}</td>
+               <td> {{ row["lastname"]}}</td>
+               <td>{{row['cpf_no']}}</td>
+                <td>{{row["DOB"]}}</td>
+                 <td> {{ row["phonenumber"]}}</td>
+               <td>{{row["emailid"]}}</td>
+               <td>{{row['DOJ']}}</td>
+                <td>{{row["DOE"]}}</td>
+               <td>{{row["total_share_amt"]}}</td>
+               <td> {{ row["total_lt_out"]}}</td>
+               <td>{{row['total_st_out']}}</td>
+            </tr>
+         {% endfor %}
+      </table>
+</div>
 
 <script>
 $("#contact").click(function(){
@@ -53,12 +137,25 @@ $("#contact").click(function(){
 $("#closebtnid").click(function(){
       $("#layer").css("filter","");
     });
+    $("#search").click(function(){
+  $('#layer').css("filter","blur(20px)");
+});
+$("#close").click(function(){
+      $("#layer").css("filter","");
+    });
+function openForm() {
+  document.getElementById("contact").style.display = "inline-block";
+}
+
+function closeForm() {
+  document.getElementById("contactForm").style.display = "none";
+}
 function openSearch() {
-  document.getElementById("contact").style.display = "block";
+  document.getElementById("mysearch").style.display = "block";
 }
 
 function closeSearch() {
-  document.getElementById("contactForm").style.display = "none";
+  document.getElementById("mysearch").style.display = "none";
 }
     $(function () {
   // contact form animations
@@ -68,13 +165,6 @@ function closeSearch() {
   $(document).mouseup(function (e) {
     var container = $("#contactForm");
 
-    if (
-      !container.is(e.target) && // if the target of the click isn't the container...
-      container.has(e.target).length === 0
-    ) {
-      // ... nor a descendant of the container
-      container.fadeOut();
-    }
   });
 });
 </script>

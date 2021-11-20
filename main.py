@@ -1,3 +1,6 @@
+from logging import root
+from tkinter import Label
+
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 
@@ -42,6 +45,22 @@ def details():
             conn.close()
 
     return render_template("customer_details.html",msg=msg)
+
+
+@app.route("/customer_details/search",methods=["GET", "POST"])
+def search():
+    if request.method == "POST":
+        cpf_no = request.form["cpf_no"]
+        conn = sqlite3.connect("project.db")
+        conn.row_factory = sqlite3.Row
+        c = conn.cursor()
+        c.execute("select * from customer_details WHERE cpf_no = '"+cpf_no+"'")
+        rows = c.fetchall()
+        c.close()
+        for r in rows:
+            print(r)
+
+        return render_template("customer_details.html", rows=rows)
 
 
 @app.route("/register", methods=["GET", "POST"])
