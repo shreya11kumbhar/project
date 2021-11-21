@@ -15,11 +15,12 @@
 </head>
 <body>
 <!-- Nav Bar -->
+<section>
 <div id="layer">
     <nav>
         <label class="logo">LOGO</label>
         <ul>
-          <li><a class="active" href="homepage">Home</a></li>
+          <li><a class="active" href="after_login">Home</a></li>
         </ul>
       </nav>
     <!-- Form Buttons -->
@@ -87,69 +88,49 @@
   </div>
 <!-- Customer Details Display -->
 <div id="mysearch" class="search-overlay">
-  <span id="close" class="close" onclick="closeSearch()" title="Close Search">×</span>
   <div class="overlay-content">
     <form action="{{ url_for('search') }}" method="POST">
-      <input type="text" placeholder="Search.." name="cpf_no">
-      <button id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
+      <input type="text" placeholder="Enter the customer's CPF number.." name="cpf_no">
+      <button id="searchBtn" onclick="search()" type="submit" value="search"><i class="fa fa-search"></i></button>
     </form>
-      <div >
-    <table id="customers">
-         {% for row in rows %}
-            <tr>
-                <th>Firstname</th>
-               <td>{{row["firstname"]}}</td>
-                </tr>
-               <tr>
-                   <th>Middlename</th>
-                   <td>{{row["middlename"]}}</td>
-                </tr>
-               <tr>
-                <th>Lastname</th>
-               <td> {{ row["lastname"]}}</td>
-                </tr>
-               <tr>
-                <th>CPF No</th>
-               <td> {{ row["cpf_no"]}}</td>
-                </tr>
-               <tr>
-                <th>DOB</th>
-               <td> {{ row["DOB"]}}</td>
-                </tr>
-                <tr>
-                <th>Phone Number</th>
-               <td> {{ row["phonenumber"]}}</td>
-                </tr>
-                <tr>
-                <th>Email Id</th>
-               <td> {{ row["emailid"]}}</td>
-                </tr>
-                <tr>
-                <th>DOJ</th>
-               <td> {{ row["DOJ"]}}</td>
-                </tr>
-               <tr>
-                <th>DOE</th>
-               <td> {{ row["DOE"]}}</td>
-                </tr>
-               <tr>
-                <th>Total share Amount</th>
-               <td> {{ row["total_share_amt"]}}</td>
-                </tr>
-               <tr>
-                <th>Total Loan Out</th>
-               <td> {{ row["total_lt_out"]}}</td>
-                </tr>
-               <tr>
-                <th>Totla ST Out</th>
-               <td> {{ row["total_st_out"]}}</td>
-                </tr>
-         {% endfor %}
-        </table>
-</div>
   </div>
 </div>
 
+<div id="scrollTable">
+    <table id="customers">
+         {% for row in rows %}
+        <tr>
+        <th>Firstname</th>
+        <th>Middlename</th>
+        <th>Lastname</th>
+        <th>CPF No</th>
+        <th>DOB</th>
+        <th>Email Id</th>
+        <th>Phone Number</th>
+        <th>DOJ</th>
+        <th>DOE</th>
+        <th>Total Share Amount</th>
+        <th>Total Loan Amount</th>
+        <th>Total St Amount</th>
+        </tr>
+        <tr>
+           <td>{{row["firstname"]}}</td>
+            <td>{{row["middlename"]}}</td>
+            <td>{{row["lastname"]}}</td>
+            <td>{{row["cpf_no"]}}</td>
+             <td>{{row["DOB"]}}</td>
+            <td>{{row["emailid"]}}</td>
+             <td>{{row["phonenumber"]}}</td>
+            <td>{{row["DOJ"]}}</td>
+             <td>{{row["DOE"]}}</td>
+            <td>{{row["total_share_amt"]}}</td>
+             <td>{{row["total_lt_out"]}}</td>
+            <td>{{row["total_st_out"]}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+</div>
+    </section>
 <script>
 <!-- Blur Background contactForm -->
 $("#contact").click(function(){
@@ -158,13 +139,6 @@ $("#contact").click(function(){
 $("#closebtnid").click(function(){
   $("#layer").css("filter","");
 });
-<!-- Blur Background SearchForm -->
-    $("#search").click(function(){
-  $('#layer').css("filter","blur(20px)");
-});
-$("#close").click(function(){
-      $("#layer").css("filter","");
-    });
 <!-- Display contactForm -->
 function openForm() {
   document.getElementById("contact").style.display = "inline-block";
@@ -172,13 +146,20 @@ function openForm() {
 function closeForm() {
   document.getElementById("contactForm").style.display = "none";
 }
-<!-- Display SearchForm -->
+<!-- Display searchForm -->
 function openSearch() {
-  document.getElementById("mysearch").style.display = "block";
+  document.getElementById("mysearch").style.display = "inline-block";
 }
 function closeSearch() {
   document.getElementById("mysearch").style.display = "none";
 }
+function search() {
+  document.getElementById("scrollTable").style.display = "inline-block";
+}
+function openForm() {
+  document.getElementById("scrollTable").style.display = "none";
+}
+
 <!-- ContactForm Animation -->
     $(function () {
   // contact form animations
@@ -189,15 +170,7 @@ function closeSearch() {
     var container = $("#contactForm");
   });
 });
-<!-- SearchForm Animation -->
-  function myFunction() {
-  var x = document.getElementById("customers");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
+
 </script>
 </body>
 </html>
