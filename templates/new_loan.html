@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='new_loan.css') }}">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JavaScript and JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <title>New Loan</title>
+</head>
+<body>
+<!-- Nav Bar -->
+<div id="layer">
+    <nav>
+        <label class="logo">LOGO</label>
+        <ul>
+          <li><a class="active" href="homepage">Home</a></li>
+        </ul>
+      </nav>
+    <!-- Form Buttons -->
+    <button  id="openLoan" class="openBtn" onclick="openForm()">New Loan</button>
+</div>
+<!-- New Loan Details -->
+<div id="loanForm" class="overlay">
+     <span class="closebtn" id="closeLoan" onclick="closeForm()" title="Close Form">×</span>
+ <form action="{{ url_for('loan') }}" method="post">
+      <table>
+          <tr>
+              <td>Loan Number</td>
+              <td> <input name="loan_num"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Loan Type</td>
+              <td> <input name="loan_type"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Loan Amount</td>
+              <td> <input name="loan_amt"  type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Interest Rate</td>
+              <td><input name="int_rate" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Principal Amount</td>
+              <td> <input name="principal_amt" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Number Of Interests</td>
+              <td> <input name="no_int"   type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Out Loan Amount</td>
+              <td><input name="out_loan_amt" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Customer ID</td>
+              <td><input name="cust_id" type="text" required /></td>
+          </tr>
+          <tr>
+              <td>Loan Distribution Date</td>
+              <td> <input name="loan_disb_date" type="date" required /></td>
+          </tr>
+      </table>
+       <input class="formBtn" type="submit" value="submit" />
+      <input class="formBtn" type="reset"  value="reset"/>
+  </form>
+       <div class="msg">{{ msg }}</div>
+  </div>
+
+<script>
+<!-- Blur Background Form -->
+$("#openLoan").click(function(){
+  $('#layer').css("filter","blur(20px)");
+  });
+$("#closeLoan").click(function(){
+  $("#layer").css("filter","");
+});
+<!-- Display Form -->
+function openForm() {
+  document.getElementById("openLoan").style.display = "inline-block";
+}
+function closeForm() {
+  document.getElementById("loanForm").style.display = "none";
+}
+
+<!-- Form Animation -->
+    $(function () {
+  // contact form animations
+  $("#openLoan").click(function () {
+    $("#loanForm").fadeToggle();
+  });
+  $(document).mouseup(function (e) {
+    var container = $("#loanForm");
+  });
+});
+</script>
+</body>
+</html>

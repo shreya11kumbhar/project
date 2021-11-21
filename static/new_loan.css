@@ -13,7 +13,7 @@ body{
   background: white;
   text-transform: uppercase;
   font-size: 11px;
-  background-image: url('https://wallpaperaccess.com/full/2374143.jpg');
+  background-image: url('https://image.freepik.com/free-photo/loan-with-money-yellow-background-concept-business-finance-credit-income-savings-investments-exchange-tax_324489-3823.jpg');
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -22,7 +22,6 @@ body{
 h1 {
   margin: 0;
 }
-
 /* Navbar */
 nav{
   background: #0082e6;
@@ -66,12 +65,12 @@ a.active,a:hover{
     font-size: 16px;
   }
 }
-/*ContactForm */
+/*LoanForm */
 @import "https://fonts.googleapis.com/css?family=Raleway";
 * {
   box-sizing: border-box;
 }
-#contact {
+#openLoan {
   -webkit-user-select: none; /* Chrome/Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+ */
@@ -90,13 +89,13 @@ a.active,a:hover{
   border-radius: 12px;
 
 }
-#contact:hover {
+#openLoan:hover {
   background: #66bafa;
 }
-#contact:active {
+#openLoan:active {
   background: #1b9bff;
 }
-#contactForm {
+#loanForm {
   display: none;
   border: 6px solid #1b9bff;
   padding: 2em;
@@ -155,105 +154,4 @@ textarea {
 }
 .overlay .closebtn:hover {
   color: #ccc;
-}
-/* SearchForm */
-#search {
-  position:absolute;
-  display: inline-block;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-  margin: 12em auto;
-  margin-left : 25%;
-  width: 300px;
-  height: 60px;
-  line-height: 50px;
-  background: #0082e6;
-  color: white;
-  font-weight: 700;
-    font-size: 2em;
-   text-align: center;
-  cursor: pointer;
-  border: 1px solid white;
-  border-radius: 12px;
-
-}
-#search:hover {
-  background: #66bafa;
-}
-#search:active {
-  background: #1b9bff;
-}
-.search-overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-}
-.search-overlay input[type=text] {
-  top: 10px;
-  /*padding: 10px;*/
-  font-size: 16px;
-  border: none;
-  float: left;
-  width: 60%;
-  background: lightgrey;
-}
-.search-overlay input[type=text]:hover {
-  background: #f1f1f1;
-}
-.search-overlay button {
-  top: 10px;
-  float: left;
-  width: 5%;
-  padding: 20px;
-  background: #ddd;
-  font-size: 10px;
-  border: none;
-  cursor: pointer;
-}
-.search-overlay button:hover {
-  background: #bbb;
-}
-.search-overlay .close {
-   position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-  cursor: pointer;
-  color: white;
-}
-.search-overlay .close:hover {
-  color: #ccc;
-}
-.overlay-content {
-  position: relative;
-  top: 46%;
-  width: 80%;
-  text-align: center;
-  margin-top: 30px;
-  margin: auto;
-}
-/* Customer Table */
-#customers {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-#customers tr:hover {background-color: #ddd;}
-#customers th {
-  font-size: 10px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #0082e6;
-  color: white;
 }

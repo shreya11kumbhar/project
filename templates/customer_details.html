@@ -4,28 +4,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='customer_details.css') }}">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- JavaScript and JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
     <title>Customer Details</title>
 </head>
 <body>
+<!-- Nav Bar -->
 <div id="layer">
     <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-          <i class="fas fa-bars"></i>
-        </label>
         <label class="logo">LOGO</label>
         <ul>
           <li><a class="active" href="homepage">Home</a></li>
         </ul>
       </nav>
+    <!-- Form Buttons -->
     <button  id="contact" class="openBtn" onclick="openForm()">New Customer</button>
      <button   id="search" class="openBtn" onclick="openSearch()">Search Customer</button>
 </div>
+<!-- New Customer Registration -->
 <div id="contactForm" class="overlay">
      <span class="closebtn" id="closebtnid" onclick="closeForm()" title="Close Form">×</span>
  <form action="{{ url_for('details') }}" method="post">
@@ -78,85 +79,107 @@
               <td>Total St Amt</td>
               <td><input name="total_st_out"  type="text" required /></td>
           </tr>
-
       </table>
        <input class="formBtn" type="submit" value="submit" />
       <input class="formBtn" type="reset"  value="reset"/>
   </form>
        <div class="msg">{{ msg }}</div>
   </div>
+<!-- Customer Details Display -->
 <div id="mysearch" class="search-overlay">
   <span id="close" class="close" onclick="closeSearch()" title="Close Search">×</span>
   <div class="overlay-content">
     <form action="{{ url_for('search') }}" method="POST">
       <input type="text" placeholder="Search.." name="cpf_no">
-      <button type="submit"><i class="fa fa-search"></i></button>
+      <button id="searchBtn" type="submit"><i class="fa fa-search"></i></button>
     </form>
-  </div>
-</div>
-<div>
-    <table border = 1>
-         <thead>
-            <td>Firstname</td>
-            <td>Middlename</td>
-            <td>Lastname</td>
-            <td>cpf_no</td>
-            <td>DOB</td>
-            <td>phonenumber</td>
-            <td>emailid</td>
-            <td>DOJ</td>
-            <td>DOE</td>
-            <td>Total Share Amount</td>
-            <td>Total Loan Amount</td>
-            <td>Total St AMount</td>
-         </thead>
-
+      <div >
+    <table id="customers">
          {% for row in rows %}
             <tr>
+                <th>Firstname</th>
                <td>{{row["firstname"]}}</td>
-               <td>{{row["middlename"]}}</td>
+                </tr>
+               <tr>
+                   <th>Middlename</th>
+                   <td>{{row["middlename"]}}</td>
+                </tr>
+               <tr>
+                <th>Lastname</th>
                <td> {{ row["lastname"]}}</td>
-               <td>{{row['cpf_no']}}</td>
-                <td>{{row["DOB"]}}</td>
-                 <td> {{ row["phonenumber"]}}</td>
-               <td>{{row["emailid"]}}</td>
-               <td>{{row['DOJ']}}</td>
-                <td>{{row["DOE"]}}</td>
-               <td>{{row["total_share_amt"]}}</td>
+                </tr>
+               <tr>
+                <th>CPF No</th>
+               <td> {{ row["cpf_no"]}}</td>
+                </tr>
+               <tr>
+                <th>DOB</th>
+               <td> {{ row["DOB"]}}</td>
+                </tr>
+                <tr>
+                <th>Phone Number</th>
+               <td> {{ row["phonenumber"]}}</td>
+                </tr>
+                <tr>
+                <th>Email Id</th>
+               <td> {{ row["emailid"]}}</td>
+                </tr>
+                <tr>
+                <th>DOJ</th>
+               <td> {{ row["DOJ"]}}</td>
+                </tr>
+               <tr>
+                <th>DOE</th>
+               <td> {{ row["DOE"]}}</td>
+                </tr>
+               <tr>
+                <th>Total share Amount</th>
+               <td> {{ row["total_share_amt"]}}</td>
+                </tr>
+               <tr>
+                <th>Total Loan Out</th>
                <td> {{ row["total_lt_out"]}}</td>
-               <td>{{row['total_st_out']}}</td>
-            </tr>
+                </tr>
+               <tr>
+                <th>Totla ST Out</th>
+               <td> {{ row["total_st_out"]}}</td>
+                </tr>
          {% endfor %}
-      </table>
+        </table>
+</div>
+  </div>
 </div>
 
 <script>
+<!-- Blur Background contactForm -->
 $("#contact").click(function(){
   $('#layer').css("filter","blur(20px)");
-});
+  });
 $("#closebtnid").click(function(){
-      $("#layer").css("filter","");
-    });
+  $("#layer").css("filter","");
+});
+<!-- Blur Background SearchForm -->
     $("#search").click(function(){
   $('#layer').css("filter","blur(20px)");
 });
 $("#close").click(function(){
       $("#layer").css("filter","");
     });
+<!-- Display contactForm -->
 function openForm() {
   document.getElementById("contact").style.display = "inline-block";
 }
-
 function closeForm() {
   document.getElementById("contactForm").style.display = "none";
 }
+<!-- Display SearchForm -->
 function openSearch() {
   document.getElementById("mysearch").style.display = "block";
 }
-
 function closeSearch() {
   document.getElementById("mysearch").style.display = "none";
 }
+<!-- ContactForm Animation -->
     $(function () {
   // contact form animations
   $("#contact").click(function () {
@@ -164,9 +187,17 @@ function closeSearch() {
   });
   $(document).mouseup(function (e) {
     var container = $("#contactForm");
-
   });
 });
+<!-- SearchForm Animation -->
+  function myFunction() {
+  var x = document.getElementById("customers");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 </script>
 </body>
 </html>
