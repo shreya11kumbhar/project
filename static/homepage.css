@@ -8,11 +8,14 @@
   }
   body{
     font-family: montserrat;
-     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYKpptEhAoYdInN7mSYuVIa0fQ9AMUbINp6g&usqp=CAU');
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  }
+  section{
+   height: 100vh;
+   background-image: linear-gradient(rgba(255,255,255,.4), rgba(255,255,255,.4)), url("https://www.lv.com/life-insurance/-/life/media/life-images/articles/article-piggy-header.jpg?h=853&w=1920&hash=B0154073328C40F99FE85D5D89101C8B3D57A215");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   }
 /* navbar */
 nav{

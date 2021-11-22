@@ -13,12 +13,15 @@ body{
   background: white;
   text-transform: uppercase;
   font-size: 11px;
-  background-image: url('https://image.freepik.com/free-photo/loan-with-money-yellow-background-concept-business-finance-credit-income-savings-investments-exchange-tax_324489-3823.jpg');
+}
+section{
+   height: 100vh;
+   background-image: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)), url("https://www.cimbbank.com.ph/en/financial-literacy-articles/financial-essentials/4-philippine-loan-myths-debunked/_jcr_content/root/responsivegrid_58989/responsivegrid_470203168/responsivegrid/responsivegrid/image_copy_copy_copy_1934310521.img.jpeg/1596437734123/loan-myths-1.jpeg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
+  }
 h1 {
   margin: 0;
 }

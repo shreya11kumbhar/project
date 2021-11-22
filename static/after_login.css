@@ -153,3 +153,69 @@ img {
   background-color: white;
   transition: all 0.4s ease;
 }
+
+/*LoanForm */
+@import "https://fonts.googleapis.com/css?family=Raleway";
+* {
+  box-sizing: border-box;
+}
+#loanForm {
+  display: none;
+  border: 6px solid #1b9bff;
+  padding: 2em;
+  width: 510px;
+  text-align: center;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+input,
+textarea {
+  margin: 0.8em auto;
+  font-family: inherit;
+  text-transform: inherit;
+  font-size: inherit;
+
+  display: block;
+  width: 350px;
+  padding: 0.6em;
+}
+textarea {
+  height: 80px;
+  resize: none;
+}
+.formBtn {
+  width: 140px;
+  display: inline-block;
+
+  background: teal;
+  color: #fff;
+  font-weight: 100;
+  font-size: 1.2em;
+  border: none;
+  height: 30px;
+}
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+
+}
+.overlay .closebtn {
+  position: absolute;
+  top: 0.8px;
+  margin-left: 42%;
+  font-size: 40px;
+  cursor: pointer;
+  color: Black;
+}
+.overlay .closebtn:hover {
+  color: #ccc;
+}
