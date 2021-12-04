@@ -24,48 +24,30 @@
         </ul>
       </nav>
     <!-- Form Buttons -->
-    <button  id="openLoan" class="openBtn" onclick="openForm()">New Loan</button>
 </div>
 <!-- New Loan Details -->
 <div id="loanForm" class="overlay">
-     <span class="closebtn" id="closeLoan" onclick="closeForm()" title="Close Form">×</span>
  <form action="{{ url_for('loan') }}" method="post">
       <table>
+          <tr>
+              <td>Customer ID</td>
+              <td><input name="cust_id" type="text" required /></td>
+          </tr>
           <tr>
               <td>Loan Number</td>
               <td> <input name="loan_num"   type="text" required /></td>
           </tr>
           <tr>
               <td>Loan Type</td>
-              <td> <input name="loan_type"   type="text" required /></td>
+              <td><select name="loan_type">
+                 <option value="-1" selected></option>
+                 <option value="shortTerm">Short Term</option>
+                 <option value="LongTerm">Long Term</option>
+               </select></td>
           </tr>
           <tr>
               <td>Loan Amount</td>
               <td> <input name="loan_amt"  type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Interest Rate</td>
-              <td><input name="int_rate" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Principal Amount</td>
-              <td> <input name="principal_amt" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Number Of Interests</td>
-              <td> <input name="no_int"   type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Out Loan Amount</td>
-              <td><input name="out_loan_amt" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Customer ID</td>
-              <td><input name="cust_id" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Loan Distribution Date</td>
-              <td> <input name="loan_disb_date" type="date" required /></td>
           </tr>
       </table>
        <input class="formBtn" type="submit" value="submit" />
@@ -75,31 +57,7 @@
   </div>
 </section>
 <script>
-<!-- Blur Background Form -->
-$("#openLoan").click(function(){
-  $('#layer').css("filter","blur(20px)");
-  });
-$("#closeLoan").click(function(){
-  $("#layer").css("filter","");
-});
-<!-- Display Form -->
-function openForm() {
-  document.getElementById("openLoan").style.display = "inline-block";
-}
-function closeForm() {
-  document.getElementById("loanForm").style.display = "none";
-}
 
-<!-- Form Animation -->
-    $(function () {
-  // contact form animations
-  $("#openLoan").click(function () {
-    $("#loanForm").fadeToggle();
-  });
-  $(document).mouseup(function (e) {
-    var container = $("#loanForm");
-  });
-});
 </script>
 </body>
 </html>
