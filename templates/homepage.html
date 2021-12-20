@@ -4,26 +4,79 @@
     <meta charset="utf-8">
     <title>Bank Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='homepage.css') }}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
   <body>
-    <section>
-      <!-- Navbar-->
     <nav>
       <input type="checkbox" id="check">
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-      <label class="logo">LOGO</label>
+
       <ul>
         <li><a class="active" href="#">Home</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="#">Contact Us </a></li>
-        <li><a href="/">Login</a></li>
-       
+          <li><a href="#">Contact Us</a></li>
+        <li><a href="index/login">Login</a></li>
+
+
       </ul>
     </nav>
-  </section>
-  </body>
-</html>
+     <div class="logo-container">
+       <div class="logo">Logo</div>
+       <div class="image">
+         <div class="imageinline">
+           <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p>
+             <p id="bythepeople">By The People</p> </div>
+           <div class="inlinecards">
+            <div class="card-content">
+              <div class="row">
+                <div class="column">
+                  <div class="card">
+                    <img src=" " alt="">
+                    <h3></h3>
+                  </div>
+                </div>
+
+                <div class="column">
+                  <div class="card">
+                    <img src=" " alt="">
+                    <h3></h3>
+                  </div>
+                </div>
+
+                <div class="column">
+                  <div class="card">
+                    <img src=" " alt="" style="height:285px; width: 285px;">
+                    <h3></h3>
+                  </div>
+                </div>
+              </div>
+              </div>
+           </div>
+           <div class="aboutcontact">
+            <ul id="contact">
+              <h5><li><i class="fa fa-map-marker "></i>&nbspP.B.No.634, Walchand Hirachand Marg,
+
+                Ashok Chowk, Solapur - 413006 (Maharashtra)</li></h5>
+                <br>
+
+             <h5><li><i class="fa fa-envelope" aria-hidden="true"></i> <span>&nbsp  principal@witsolapur.org
+                principal.witsolapur@gmail.com</span></li></h5>
+                <br>
+
+              <h5><li><i class="fa fa-phone "></i><span>&nbsp (0217)2652700, 2653040, 2391700</span></li></h5>
+            </ul>
+            <br>
+            <a class="social-icon"href="#"><i class="fa fa-envelope fa-2x"></i></a>
+            <a class="social-icon"><i class="fab fa-twitter fa-2x"></i></a>
+            <a class="social-icon"><i class="fab fa-facebook-f fa-2x"></i></a>
+            <a class="social-icon"><i class="fa fa-instagram fa-2x"></i></a>
+           </div>
+         </div>
+       </div>
+     </div>
+
+      </body>
+    </html>

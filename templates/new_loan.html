@@ -1,63 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Bank Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='new_loan.css') }}">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- JavaScript and JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <title>New Loan</title>
-</head>
-<body>
-<!-- Nav Bar -->
-<div id="layer">
-    <section>
-    <nav>
-        <label class="logo">LOGO</label>
-        <ul>
-          <li><a class="active" href="after_login">Home</a></li>
-        </ul>
-      </nav>
-    <!-- Form Buttons -->
-</div>
-<!-- New Loan Details -->
-<div id="loanForm" class="overlay">
- <form action="{{ url_for('loan') }}" method="post">
-      <table>
-          <tr>
-              <td>Customer ID</td>
-              <td><input name="cust_id" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Loan Number</td>
-              <td> <input name="loan_num"   type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Loan Type</td>
-              <td><select name="loan_type">
-                 <option value="-1" selected></option>
-                 <option value="shortTerm">Short Term</option>
-                 <option value="LongTerm">Long Term</option>
-               </select></td>
-          </tr>
-          <tr>
-              <td>Loan Amount</td>
-              <td> <input name="loan_amt"  type="text" required /></td>
-          </tr>
-      </table>
-       <input class="formBtn" type="submit" value="submit" />
-      <input class="formBtn" type="reset"  value="reset"/>
-  </form>
-       <div class="msg">{{ msg }}</div>
-  </div>
-</section>
+    
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 <script>
-
+    function shortTerm(value){
+    var x;
+    x = value/10
+    if(value <=50000){
+        document.getElementById("intRate").value="10.8";
+        document.getElementById("inst").value="10";
+        document.getElementById("prinAmt").value=x;
+        document.getElementById("outAmt").value=value;
+    }
+    else{
+        document.getElementById("intRate").value="0";
+        document.getElementById("inst").value="0";
+        document.getElementById("prinAmt").value="0";
+        document.getElementById("outAmt").value="0";
+        alert("You have exceeded 50000!!!!");
+    }
+}
+function longTerm(){
+    var x = document.getElementById("loan_amt").value;
+    var y = document.getElementById("tp").value;
+    var z = parseFloat(x/y);
+    if(x <=500000){
+        document.getElementById("intRate1").value="10.8";
+        document.getElementById("prinAmt1").value=Math.round(z);
+        document.getElementById("outAmt1").value=x;
+    }
+    else{
+        document.getElementById("intRate1").value="0";
+        document.getElementById("prinAmt1").value="0";
+        document.getElementById("outAmt1").value="0";
+        alert("You have exceeded 500000!!!!");
+    }
+}
 </script>
-</body>
-</html>
+</head>
+  <html>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+       
+      <ul>
+        <li><a class="active" href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <!-- <li><a href="#">Services </a></li> -->
+        <li><a href="#">Contact Us</a></li>
+       
+      </ul>
+    </nav>
+     <body class="logo-container">
+       <div class="logo">Logo</div>
+       <div class="image">
+         <div class="imageinline">
+           <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p> 
+             <p id="bythepeople">By The People</p> </div>
+
+<!--                 <div id="popup" class="msg-column">-->
+<!--                  <div class="card">-->
+<!--                    <h4>{{v}}</h4>-->
+<!--                  </div>-->
+<!--                </div>-->
+
+
+           <div class="inlinecards">
+            <div class="card-content"> 
+              <div class="row">
+                <div class="column">
+                  <div class="card">
+
+                    <button type="button" class="shbtn" onclick="showshortermForm()" >Short Term Loan</button>
+                     
+                       
+                    <form id="formElement" style="display: none;"  action="{{ url_for('shortLoan') }}" method="post">
+                        <div class="form-outline mb-4 " >
+                            <input type="text" name="cpf_no" placeholder="Enter Customer ID" class="form-control form-control-lg" required/></label>
+                          </div>
+
+                      <div class="form-outline mb-4 " >
+                        <input type="text" name="loan_amt" placeholder="Enter Loan Amount" class="form-control form-control-lg" onkeyup="shortTerm(this.value);" required />
+                      </div>
+      
+                      <div class="form-outline mb-4">
+                        <input type="text" name="int_rate" id="intRate"placeholder="Rate of Interest" class="form-control form-control-lg" />
+                      </div>
+      
+                      <div class="form-outline mb-4">
+                        <input type="text" name="no_int" id="inst" placeholder="No. of Installments" class="form-control form-control-lg" />
+                      </div>
+      
+                      <div class="form-outline mb-4">
+                        <input type="text" name="principal_amt" id="prinAmt" placeholder="Principal amount" class="form-control form-control-lg" />
+                      </div> 
+                      <div class="form-outline mb-4">
+                        <input type="text" name="out_loan_amt" id="outAmt" placeholder="Outstanding Loan amount"class="form-control form-control-lg" />
+                      </div> 
+                      <div class="form-outline mb-4">
+                        <label class="form-label" >Loan Disbursement Date</label>
+                        <input type="date" id="today" name="loan_disb_date"  class="form-control form-control-lg" />
+                      </div>
+                       <div class="d-flex justify-content-center">
+                       <button type="submit"  value="submit"  onclick="myPopup()" class="btn" style=" background-color: #1597E5;">Submit</button>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <button type="button" value="cancel" class="btn cancel" onclick="closeshortermForm()">Close</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              
+                <div class="column">
+                  <div class="card">
+                    <button type="button" class="shbtn" onclick="showlongtermForm()" >Long Term Loan</button>
+
+
+                    <form id="formElement1" style="display: none;" style="z-index: 20;" action="{{ url_for('longLoan') }}" method="post">
+                      <div class="form-outline mb-4 " >
+                        <input type="text" name="cpf_no" placeholder="Enter Customer ID"class="form-control form-control-lg" required/>
+                      </div>
+                      <div class="form-outline mb-4 " >
+                        <input type="text" name="loan_amt" id="loan_amt" placeholder="Enter Loan Amount"class="form-control form-control-lg" onkeyup="longTerm();" required/>
+                      </div>
+
+                       <div class="form-outline mb-4">
+                        <input type="text"  name="no_int" id="tp" placeholder="Enter Time Period" class="form-control form-control-lg" onkeyup="longTerm()"  required/>
+                      </div>
+
+                      <div class="form-outline mb-4">
+                        <input type="text" name="int_rate" id="intRate1" placeholder="Rate of Interest" class="form-control form-control-lg" />
+                      </div>
+
+                      <div class="form-outline mb-4">
+                         <input type="text" name="principal_amt" id="prinAmt1" placeholder="Principal Amount"class="form-control form-control-lg" />
+                      </div>
+
+                       <div class="form-outline mb-4">
+                         <input type="text" name="out_loan_amt" id="outAmt1" placeholder="Outstanding Loan Amount"class="form-control form-control-lg" />
+                      </div>
+
+                       <div class="form-outline mb-4">
+                        <label class="form-label">Loan Disbursement Date</label>
+                         <input type="date" name="loan_disb_date" id="today1" class="form-control form-control-lg" />
+                      </div>
+
+                      <div class="d-flex justify-content-center">
+                        <button type="submit" value="submit" class="btn" style=" background-color: #1597E5;">Submit</button>
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <button type="button" value="cancel" class="btn cancel" onclick="closelongtermForm()">Close</button>
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <div class="loaninfo">
+              <div class="innerloaninfo">
+                <div class="tableview"> 
+                <table>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                  <tr>
+                    <ul> 
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
+                    </ul>
+                  </tr>
+                </table>
+              </div>
+              </div>
+
+            </div>
+           </div>
+       </div>
+     </div>
+    
+
+       <script type="text/javascript">
+      function showshortermForm() {
+          document.getElementById('formElement').style.display = 'block';
+      }
+      function closeshortermForm() {
+  document.getElementById("formElement").style.display = "none";
+}
+      function showlongtermForm() {
+          document.getElementById('formElement1').style.display = 'block';
+      }
+      function closelongtermForm() {
+  document.getElementById("formElement1").style.display = "none";
+}
+
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#today").value = today;
+
+let today1 = new Date().toISOString().substr(0, 10);
+document.querySelector("#today1").value = today1;
+  </script>
+ <script type="text/javascript" {{ url_for('static', filename='app.js')}}></script>
+         <script type="text/javascript">
+            myPopup({{v}})
+         </script>
+     </body>
+  </html>

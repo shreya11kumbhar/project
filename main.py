@@ -5,37 +5,63 @@ app = Flask(__name__)
 app.secret_key = "super secret key"
 
 
-# conn = sqlite3.connect("project.db") c = conn.cursor() c.execute("DROP TABLE IF EXISTS customer_details")
-# c.execute("CREATE TABLE  customer_details(firstname VARCHAR(45), middlename VARCHAR(45), lastname VARCHAR(45),
-# cpf_no VARCHAR(45), DOB DATE, phonenumber CHAR(10), emailid VARCHAR(50), DOJ DATE, DOE DATE, total_share_amt INT,
-# total_lt_out INT, total_st_out INT)") conn.commit() conn.close()
-
-@app.route("/homepage")
+@app.route("/")
 def homepage():
     return render_template("homepage.html")
 
 
 # New Loan
-@app.route("/new_loan", methods=["GET", "POST"])
-def loan():
+@app.route("/new_loan/shortLoan", methods=["GET", "POST"])
+def shortLoan():
     msg = ""
+    v = ""
     if request.method == "POST":
-        if request.form["loan_num"] != "" and request.form["loan_type"] != "" and request.form["loan_amt"] != "" and \
-                request.form["int_rate"] != "" and request.form["principal_amt"] != "" and request.form["no_int"] != "" and \
-                request.form["out_loan_amt"] != "" and request.form["cust_id"] != "" and request.form["loan_disb_date"] != "":
-            loan_num = request.form["loan_num"]
-            loan_type = request.form["loan_type"]
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+            cpf_no = request.form["cpf_no"]
             loan_amt = request.form["loan_amt"]
             int_rate = request.form["int_rate"]
-            principal_amt = request.form["principal_amt"]
             no_int = request.form["no_int"]
+            principal_amt = request.form["principal_amt"]
             out_loan_amt = request.form["out_loan_amt"]
-            cust_id = request.form["cust_id"]
             loan_disb_date = request.form["loan_disb_date"]
+            loan_type = "short term"
+            conn = sqlite3.connect("project.db")
+            c = conn.cursor()
+            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
+            result = c.fetchone()
+            if result:
+                c.execute(
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "')")
+                v = "valid"
+            else:
+                v = "invalid"
+
+
+
+            conn.commit()
+            conn.close()
+
+    return render_template("new_loan.html", msg=msg,v=v)
+
+
+# New Loan
+@app.route("/new_loan/longLoan", methods=["GET", "POST"])
+def longLoan():
+    msg = ""
+    if request.method == "POST":
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+            cpf_no = request.form["cpf_no"]
+            loan_amt = request.form["loan_amt"]
+            int_rate = request.form["int_rate"]
+            no_int = request.form["no_int"]
+            principal_amt = request.form["principal_amt"]
+            out_loan_amt = request.form["out_loan_amt"]
+            loan_disb_date = request.form["loan_disb_date"]
+            loan_type = "long term"
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute(
-                "INSERT INTO loan_details VALUES('" +  loan_num + "', '" +  loan_type + "' , '" +  loan_amt + "', '" +  int_rate + "', '" + principal_amt + "',  '" + no_int + "', '" + out_loan_amt + "', '" + cust_id + "',  '" + loan_disb_date + "')")
+                "INSERT INTO loan_details VALUES('" +  cpf_no + "' , '"+ loan_amt+"' ,'" + int_rate+ "','" +  no_int + "' , '"+ principal_amt+"' ,'" +  out_loan_amt + "' , '"+ loan_disb_date+"','"+loan_type+"')")
             msg = "Your account is created"
             conn.commit()
             conn.close()
@@ -62,12 +88,12 @@ def details():
             DOJ = request.form["DOJ"]
             DOE = request.form["DOE"]
             total_share_amt = request.form["total_share_amt"]
-            total_lt_out = request.form["total_lt_out"]
-            total_st_out = request.form["total_st_out"]
+            total_lt_amt = request.form["total_lt_out"]
+            total_st_amt = request.form["total_st_out"]
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute(
-                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "','" + total_share_amt + "', '" + total_lt_out + "',  '" + total_st_out + "')")
+                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "','" + total_share_amt + "', '" + total_lt_amt + "',  '" + total_st_amt + "')")
             msg = "Your account is created"
             conn.commit()
             conn.close()
@@ -92,7 +118,7 @@ def search():
 
 
 # Register and Login page
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/index/register", methods=["GET", "POST"])
 def register():
     msg = ""
     if request.method == "POST":
@@ -119,7 +145,7 @@ def register():
     return render_template("index.html", msg=msg)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/index/login", methods=["GET", "POST"])
 def login():
     msg = ""
     if request.method == 'POST':
