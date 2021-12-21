@@ -45,6 +45,7 @@ function longTerm(){
     }
 }
 </script>
+<!--     <script  type="text/javascript" src="{{ url_for('static', filename='app.js')}}" ></script>-->
 </head>
   <html>
     <nav>
@@ -67,12 +68,6 @@ function longTerm(){
          <div class="imageinline">
            <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p> 
              <p id="bythepeople">By The People</p> </div>
-
-<!--                 <div id="popup" class="msg-column">-->
-<!--                  <div class="card">-->
-<!--                    <h4>{{v}}</h4>-->
-<!--                  </div>-->
-<!--                </div>-->
 
 
            <div class="inlinecards">
@@ -112,7 +107,7 @@ function longTerm(){
                         <input type="date" id="today" name="loan_disb_date"  class="form-control form-control-lg" />
                       </div>
                        <div class="d-flex justify-content-center">
-                       <button type="submit"  value="submit"  onclick="myPopup()" class="btn" style=" background-color: #1597E5;">Submit</button>
+                       <button type="submit"  value="submit"  class="btn" style=" background-color: #1597E5;">Submit</button>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button type="button" value="cancel" class="btn cancel" onclick="closeshortermForm()">Close</button>
@@ -237,9 +232,15 @@ document.querySelector("#today").value = today;
 let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
   </script>
- <script type="text/javascript" {{ url_for('static', filename='app.js')}}></script>
-         <script type="text/javascript">
-            myPopup({{v}})
-         </script>
+     <script>
+   var msg = '{{v}}'
+   if(msg == 'valid'){
+   alert('Form submitted Successfully!!!!');
+   }
+   else if(msg == 'invalid'){
+   alert('Enter Valid Customer ID!!!!!');
+   }
+
+     </script>
      </body>
   </html>

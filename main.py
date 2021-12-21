@@ -37,7 +37,6 @@ def shortLoan():
                 v = "invalid"
 
 
-
             conn.commit()
             conn.close()
 
