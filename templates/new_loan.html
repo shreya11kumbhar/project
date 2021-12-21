@@ -53,32 +53,32 @@ function longTerm(){
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-       
+
       <ul>
         <li><a class="active" href="#">Home</a></li>
         <li><a href="#">About Us</a></li>
         <!-- <li><a href="#">Services </a></li> -->
         <li><a href="#">Contact Us</a></li>
-       
+
       </ul>
     </nav>
      <body class="logo-container">
        <div class="logo">Logo</div>
        <div class="image">
          <div class="imageinline">
-           <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p> 
+           <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p>
              <p id="bythepeople">By The People</p> </div>
 
 
            <div class="inlinecards">
-            <div class="card-content"> 
+            <div class="card-content">
               <div class="row">
                 <div class="column">
                   <div class="card">
 
                     <button type="button" class="shbtn" onclick="showshortermForm()" >Short Term Loan</button>
-                     
-                       
+
+
                     <form id="formElement" style="display: none;"  action="{{ url_for('shortLoan') }}" method="post">
                         <div class="form-outline mb-4 " >
                             <input type="text" name="cpf_no" placeholder="Enter Customer ID" class="form-control form-control-lg" required/></label>
@@ -87,27 +87,27 @@ function longTerm(){
                       <div class="form-outline mb-4 " >
                         <input type="text" name="loan_amt" placeholder="Enter Loan Amount" class="form-control form-control-lg" onkeyup="shortTerm(this.value);" required />
                       </div>
-      
+
                       <div class="form-outline mb-4">
                         <input type="text" name="int_rate" id="intRate"placeholder="Rate of Interest" class="form-control form-control-lg" />
                       </div>
-      
+
                       <div class="form-outline mb-4">
                         <input type="text" name="no_int" id="inst" placeholder="No. of Installments" class="form-control form-control-lg" />
                       </div>
-      
+
                       <div class="form-outline mb-4">
                         <input type="text" name="principal_amt" id="prinAmt" placeholder="Principal amount" class="form-control form-control-lg" />
-                      </div> 
+                      </div>
                       <div class="form-outline mb-4">
                         <input type="text" name="out_loan_amt" id="outAmt" placeholder="Outstanding Loan amount"class="form-control form-control-lg" />
-                      </div> 
+                      </div>
                       <div class="form-outline mb-4">
                         <label class="form-label" >Loan Disbursement Date</label>
                         <input type="date" id="today" name="loan_disb_date"  class="form-control form-control-lg" />
                       </div>
                        <div class="d-flex justify-content-center">
-                       <button type="submit"  value="submit"  class="btn" style=" background-color: #1597E5;">Submit</button>
+                       <button type="submit"  value="submit" onclick="myPopup()" class="btn" >Submit</button>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button type="button" value="cancel" class="btn cancel" onclick="closeshortermForm()">Close</button>
@@ -115,7 +115,7 @@ function longTerm(){
                     </form>
                   </div>
                 </div>
-              
+
                 <div class="column">
                   <div class="card">
                     <button type="button" class="shbtn" onclick="showlongtermForm()" >Long Term Loan</button>
@@ -151,7 +151,7 @@ function longTerm(){
                       </div>
 
                       <div class="d-flex justify-content-center">
-                        <button type="submit" value="submit" class="btn" style=" background-color: #1597E5;">Submit</button>
+                        <button type="submit" value="submit" class="btn"  >Submit</button>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button type="button" value="cancel" class="btn cancel" onclick="closelongtermForm()">Close</button>
@@ -164,40 +164,40 @@ function longTerm(){
             </div>
             <div class="loaninfo">
               <div class="innerloaninfo">
-                <div class="tableview"> 
+                <div class="tableview">
                 <table>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
                   </tr>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
                   </tr>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
                   </tr>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
                   </tr>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
                   </tr>
                   <tr>
-                    <ul> 
+                    <ul>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
                     </ul>
@@ -210,7 +210,7 @@ function longTerm(){
            </div>
        </div>
      </div>
-    
+
 
        <script type="text/javascript">
       function showshortermForm() {
@@ -231,16 +231,16 @@ document.querySelector("#today").value = today;
 
 let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
-  </script>
-     <script>
+   function myPopup(){
    var msg = '{{v}}'
    if(msg == 'valid'){
    alert('Form submitted Successfully!!!!');
    }
-   else if(msg == 'invalid'){
+  else{
    alert('Enter Valid Customer ID!!!!!');
    }
+   }
+  </script>
 
-     </script>
      </body>
   </html>

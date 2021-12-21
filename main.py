@@ -86,13 +86,10 @@ def details():
             emailid = request.form["emailid"]
             DOJ = request.form["DOJ"]
             DOE = request.form["DOE"]
-            total_share_amt = request.form["total_share_amt"]
-            total_lt_amt = request.form["total_lt_out"]
-            total_st_amt = request.form["total_st_out"]
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute(
-                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "','" + total_share_amt + "', '" + total_lt_amt + "',  '" + total_st_amt + "')")
+                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "')")
             msg = "Your account is created"
             conn.commit()
             conn.close()
