@@ -1,13 +1,12 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
-import js2py
 
 
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
-
+#Homepage
 @app.route("/")
 def homepage():
     return render_template("homepage.html")
@@ -171,7 +170,7 @@ def login():
                 msg = "Please Enter Valid Userid,Emailid and Password"
     return render_template("index.html", msg=msg)
 
-
+#After login functions
 @app.route("/after_login")
 def after_login():
     return render_template("after_login.html")
