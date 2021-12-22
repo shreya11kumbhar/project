@@ -37,14 +37,11 @@ def shortLoan():
                     "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
                 v = "valid"
             else:
-                v= "invalid"
+                v = "invalid"
             conn.commit()
             conn.close()
 
     return render_template("new_loan.html", v=v)
-
-
-
 
 
 @app.route("/new_loan/longLoan", methods=["GET", "POST"])
@@ -76,6 +73,7 @@ def longLoan():
 
     return render_template("new_loan.html", v=v)
 
+
 # Customer Details
 @app.route("/customer_details", methods=["GET", "POST"])
 def details():
@@ -83,8 +81,7 @@ def details():
     if request.method == "POST":
         if request.form["firstname"] != "" and request.form["middlename"] != "" and request.form["lastname"] != "" and \
                 request.form["cpf_no"] != "" and request.form["DOB"] != "" and request.form["phonenumber"] != "" and \
-                request.form["emailid"] != "" and request.form["DOJ"] != "" and request.form["DOE"] != "" and \
-                request.form["total_share_amt"] != "" and request.form["total_lt_out"] != "" and request.form["total_st_out"] != "":
+                request.form["emailid"] != "" and request.form["DOJ"] != "" and request.form["DOE"] != "":
             firstname = request.form["firstname"]
             middlename = request.form["middlename"]
             lastname = request.form["lastname"]
@@ -94,10 +91,13 @@ def details():
             emailid = request.form["emailid"]
             DOJ = request.form["DOJ"]
             DOE = request.form["DOE"]
+            total_st_amt = '0'
+            total_lt_amt = '0'
+            total_share_amt = '0'
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute(
-                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "')")
+                "INSERT INTO customer_details VALUES('" + firstname + "', '" + middlename + "' , '" + lastname + "', '" + cpf_no + "', '" + DOB + "',  '" + phonenumber + "', '" + emailid + "', '" + DOJ + "',  '" + DOE + "', '" + total_st_amt+ "', '" + total_lt_amt + "',  '" + total_share_amt + "')")
             msg = "Your account is created"
             conn.commit()
             conn.close()
@@ -112,12 +112,39 @@ def search():
         conn = sqlite3.connect("project.db")
         conn.row_factory = sqlite3.Row
         c = conn.cursor()
+        c.execute("select cpf_no from customer_details WHERE cpf_no = '" + cpf_no + "'")
+        rows = c.fetchall()
+        for r in rows:
+            for i in r:
+                print(i)
+        c.execute(
+            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='short term' and c.cpf_no = '"+cpf_no+"' ")
+        st_loan_amt = (c.fetchall())
+        total_st_amt = 0
+        total_share_amt = 0
+        for i in st_loan_amt:
+            for j in range(len(i)):
+                total_share_amt += i[j]*0.2
+                total_st_amt += i[j]
+        print(total_st_amt)
+        c.execute(
+            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='long term' and c.cpf_no = '" + cpf_no + "' ")
+        lt_loan_amt = (c.fetchall())
+        total_lt_amt = 0
+        for i in lt_loan_amt:
+            for j in range(len(i)):
+                total_share_amt += i[j]*0.2
+                total_lt_amt += i[j]
+        print(total_lt_amt)
+        print(total_share_amt)
+        c.execute("UPDATE customer_details SET total_st_amt = '" +str(total_st_amt)+"', total_lt_amt = '" +str(total_lt_amt)+"', total_share_amt = '" +str(total_share_amt)+"' WHERE cpf_no = '" + cpf_no + "' ")
         c.execute("select * from customer_details WHERE cpf_no = '" + cpf_no + "'")
         rows = c.fetchall()
-        c.close()
         for r in rows:
-            print(r)
-
+            for i in r:
+                print(i)
+        conn.commit()
+        c.close()
         return render_template("customer_details.html", rows=rows)
 
 

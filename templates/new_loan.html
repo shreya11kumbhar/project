@@ -79,9 +79,8 @@ function longTerm(){
 
                     <form id="formElement" style="display: none;"  action="{{ url_for('shortLoan') }}" method="post">
                         <div class="form-outline mb-4 " >
-                            <input type="text" name="cpf_no" placeholder="Enter Customer ID" class="form-control form-control-lg" required/></label>
+                            <input type="text" name="cpf_no" placeholder="Enter Customer ID" class="form-control form-control-lg" required/>
                           </div>
-
                       <div class="form-outline mb-4 " >
                         <input type="text" name="loan_amt" placeholder="Enter Loan Amount" class="form-control form-control-lg" onkeyup="shortTerm(this.value);" required />
                       </div>
@@ -105,7 +104,7 @@ function longTerm(){
                         <input type="date" id="today" name="loan_disb_date"  class="form-control form-control-lg" />
                       </div>
                        <div class="d-flex justify-content-center">
-                       <button type="submit"  value="submit" onclick="myPopup()" class="btn" >Submit</button>
+                       <button type="submit"  value="submit" onclick="myPopup()"  class="btn" >Submit</button>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button type="button" value="cancel" class="btn cancel" onclick="closeshortermForm()">Close</button>
@@ -160,6 +159,14 @@ function longTerm(){
                 </div>
               </div>
             </div>
+             <div id="popup1" class="overlay">
+    <div class="popup">
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+             {{v}}
+        </div>
+    </div>
+</div>
             <div class="loaninfo">
               <div class="innerloaninfo">
                 <div class="tableview">
@@ -231,11 +238,11 @@ let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
  function myPopup(){
   var msg = '{{v}}'
-  if(msg === 'valid'){
-    alert('Form Successfully!!!');
+  if(msg == 'valid'){
+    window.alert('Form Successfully!!!');
   }
-  if(msg === 'invalid'){
-    alert('Enter Customer ID!!!!');
+  if(msg == 'invalid'){
+    window.alert('Enter Customer ID!!!!');
   }
   }
   </script>
