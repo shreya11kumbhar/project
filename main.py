@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
+import js2py
+
+
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
@@ -10,7 +13,7 @@ def homepage():
     return render_template("homepage.html")
 
 
-# New Loan
+# New Loan 
 @app.route("/new_loan/shortLoan", methods=["GET", "POST"])
 def shortLoan():
     msg = ""
@@ -25,28 +28,29 @@ def shortLoan():
             out_loan_amt = request.form["out_loan_amt"]
             loan_disb_date = request.form["loan_disb_date"]
             loan_type = "short term"
+            loan_id = str(cpf_no) + "st" + "".join(str(loan_disb_date).split("-"))
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
             result = c.fetchone()
             if result:
                 c.execute(
-                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "')")
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
                 v = "valid"
             else:
-                v = "invalid"
-
-
+                v= "invalid"
             conn.commit()
             conn.close()
 
-    return render_template("new_loan.html", msg=msg,v=v)
+    return render_template("new_loan.html", v=v)
 
 
-# New Loan
+
+
+
 @app.route("/new_loan/longLoan", methods=["GET", "POST"])
 def longLoan():
-    msg = ""
+    v = ""
     if request.method == "POST":
         if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
             cpf_no = request.form["cpf_no"]
@@ -57,16 +61,21 @@ def longLoan():
             out_loan_amt = request.form["out_loan_amt"]
             loan_disb_date = request.form["loan_disb_date"]
             loan_type = "long term"
+            loan_id = str(cpf_no) + "lt" + "".join(str(loan_disb_date).split("-"))
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
-            c.execute(
-                "INSERT INTO loan_details VALUES('" +  cpf_no + "' , '"+ loan_amt+"' ,'" + int_rate+ "','" +  no_int + "' , '"+ principal_amt+"' ,'" +  out_loan_amt + "' , '"+ loan_disb_date+"','"+loan_type+"')")
-            msg = "Your account is created"
+            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
+            result = c.fetchone()
+            if result:
+                c.execute(
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','" + loan_id + "')")
+                v = "valid"
+            else:
+                v = "invalid"
             conn.commit()
             conn.close()
 
-    return render_template("new_loan.html", msg=msg)
-
+    return render_template("new_loan.html", v=v)
 
 # Customer Details
 @app.route("/customer_details", methods=["GET", "POST"])

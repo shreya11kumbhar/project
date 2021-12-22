@@ -45,7 +45,6 @@ function longTerm(){
     }
 }
 </script>
-<!--     <script  type="text/javascript" src="{{ url_for('static', filename='app.js')}}" ></script>-->
 </head>
   <html>
     <nav>
@@ -68,7 +67,6 @@ function longTerm(){
          <div class="imageinline">
            <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p>
              <p id="bythepeople">By The People</p> </div>
-
 
            <div class="inlinecards">
             <div class="card-content">
@@ -151,7 +149,7 @@ function longTerm(){
                       </div>
 
                       <div class="d-flex justify-content-center">
-                        <button type="submit" value="submit" class="btn"  >Submit</button>
+                        <button type="submit" value="submit" onclick="myPopup()" class="btn"  >Submit</button>
                       </div>
                       <div class="d-flex justify-content-center">
                         <button type="button" value="cancel" class="btn cancel" onclick="closelongtermForm()">Close</button>
@@ -231,15 +229,16 @@ document.querySelector("#today").value = today;
 
 let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
-   function myPopup(){
-   var msg = '{{v}}'
-   if(msg == 'valid'){
-   alert('Form submitted Successfully!!!!');
-   }
-  else{
-   alert('Enter Valid Customer ID!!!!!');
-   }
-   }
+ function myPopup(){
+  var msg = '{{v}}'
+  console.log(msg);
+  if(msg === 'valid'){
+    alert('Form Successfully!!!');
+  }
+  if(msg === 'invalid'){
+    alert('Enter Customer ID!!!!');
+  }
+  }
   </script>
 
      </body>
