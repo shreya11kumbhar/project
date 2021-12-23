@@ -11,7 +11,7 @@
     <nav>
       <label class="logo">LOGO</label>
       <ul>
-        <li><a class="active" href="homepage">Home</a></li>
+        <li><a class="active" href="/">Home</a></li>
       </ul>
     </nav>
     <section>
@@ -49,11 +49,10 @@
                 </div>
                 <div class="text"><a href="#">Forgot password?</a></div>
                 <div class="button input-box">
-                  <input type="submit" value="Submit">
+                  <input type="submit" onsubmit="myPopup()" value="Submit">
                 </div>
                 <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label></div>
               </div>
-                  <div class="msg">{{ msg }}</div>
           </form>
         </div>
           <div class="signup-form">
@@ -109,6 +108,12 @@
                   </div>
          </section>
                   </section>
-                   
+
+  <script>
+       function myPopup(){
+   alert('Form Successfully submitted!!!');
+  }
+  }
+  </script>
   </body>
 </html>

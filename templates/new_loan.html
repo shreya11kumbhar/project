@@ -54,11 +54,8 @@ function longTerm(){
       </label>
 
       <ul>
-        <li><a class="active" href="#">Home</a></li>
-        <li><a href="#">About Us</a></li>
-        <!-- <li><a href="#">Services </a></li> -->
-        <li><a href="#">Contact Us</a></li>
-
+         <li><a class="active" href="/after_login">Home</a></li>
+         <li><a class="active" href="/logout">Log Out</a></li>
       </ul>
     </nav>
      <body class="logo-container">
@@ -236,13 +233,14 @@ document.querySelector("#today").value = today;
 
 let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
+
  function myPopup(){
   var msg = '{{v}}'
   if(msg == 'valid'){
-    window.alert('Form Successfully!!!');
+   alert('Form Successfully!!!');
   }
-  if(msg == 'invalid'){
-    window.alert('Enter Customer ID!!!!');
+  else{
+    alert('Enter Customer ID!!!!');
   }
   }
   </script>

@@ -2,76 +2,73 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 
 
-
 app = Flask(__name__)
 app.secret_key = "super secret key"
 
-#Homepage
+
+# Homepage
 @app.route("/")
 def homepage():
     return render_template("homepage.html")
 
 
-# New Loan 
-@app.route("/new_loan/shortLoan", methods=["GET", "POST"])
-def shortLoan():
-    msg = ""
-    v = ""
+# Register
+@app.route("/index/register", methods=["GET", "POST"])
+def register():
     if request.method == "POST":
-        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
-            cpf_no = request.form["cpf_no"]
-            loan_amt = request.form["loan_amt"]
-            int_rate = request.form["int_rate"]
-            no_int = request.form["no_int"]
-            principal_amt = request.form["principal_amt"]
-            out_loan_amt = request.form["out_loan_amt"]
-            loan_disb_date = request.form["loan_disb_date"]
-            loan_type = "short term"
-            loan_id = str(cpf_no) + "st" + "".join(str(loan_disb_date).split("-"))
+        if request.form["userid"] != "" and request.form["emailid"] != "" and request.form["password"] != "" and \
+                request.form["firstname"] != "" and request.form["lastname"] != "" and request.form["status"] != "" and \
+                request.form["types"] != "" and request.form["doj"] != "" and request.form["phonenumber"] != "":
+            userid = request.form["userid"]
+            emailid = request.form["emailid"]
+            password = request.form["password"]
+            firstname = request.form["firstname"]
+            lastname = request.form["lastname"]
+            status = request.form["status"]
+            types = request.form["types"]
+            doj = request.form["doj"]
+            phonenumber = request.form["phonenumber"]
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
-            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
-            result = c.fetchone()
-            if result:
-                c.execute(
-                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
-                v = "valid"
-            else:
-                v = "invalid"
+            c.execute(
+                "INSERT INTO user_login VALUES('" + userid + "', '" + emailid + "' , '" + password + "', '" + firstname + "', '" + lastname + "', '" + status + "', '" + types + "',  '" + doj + "',  '" + phonenumber + "')")
             conn.commit()
             conn.close()
 
-    return render_template("new_loan.html", v=v)
+    return render_template("index.html")
 
 
-@app.route("/new_loan/longLoan", methods=["GET", "POST"])
-def longLoan():
-    v = ""
-    if request.method == "POST":
-        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
-            cpf_no = request.form["cpf_no"]
-            loan_amt = request.form["loan_amt"]
-            int_rate = request.form["int_rate"]
-            no_int = request.form["no_int"]
-            principal_amt = request.form["principal_amt"]
-            out_loan_amt = request.form["out_loan_amt"]
-            loan_disb_date = request.form["loan_disb_date"]
-            loan_type = "long term"
-            loan_id = str(cpf_no) + "lt" + "".join(str(loan_disb_date).split("-"))
-            conn = sqlite3.connect("project.db")
-            c = conn.cursor()
-            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
-            result = c.fetchone()
-            if result:
-                c.execute(
-                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','" + loan_id + "')")
-                v = "valid"
-            else:
-                v = "invalid"
-            conn.commit()
-            conn.close()
+# Login
+@app.route("/index/login", methods=["GET", "POST"])
+def login():
+    if request.method == 'POST':
+        userid = request.form["userid"]
+        emailid = request.form["emailid"]
+        password = request.form["password"]
+        conn = sqlite3.connect("project.db")
+        c = conn.cursor()
+        c.execute(
+            "SELECT userid, emailid, password FROM user_login WHERE userid = '" + userid + "' and emailid = '" + emailid + "' and password = '" + password + "'")
+        r = c.fetchall()
+        for i in r:
+            if userid == i[0] and emailid == i[1] and password == i[2]:
+                session["logedin"] = True
+                session["userid"] = userid
+                return redirect(url_for("after_login"))
+    return render_template("index.html")
 
-    return render_template("new_loan.html", v=v)
+
+# After login
+@app.route("/after_login")
+def after_login():
+    return render_template("after_login.html")
+
+
+# logout
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 
 # Customer Details
@@ -105,6 +102,7 @@ def details():
     return render_template("customer_details.html", msg=msg)
 
 
+# customer search
 @app.route("/customer_details/search", methods=["GET", "POST"])
 def search():
     if request.method == "POST":
@@ -148,65 +146,67 @@ def search():
         return render_template("customer_details.html", rows=rows)
 
 
-# Register and Login page
-@app.route("/index/register", methods=["GET", "POST"])
-def register():
+# New short term loan
+@app.route("/new_loan/shortLoan", methods=["GET", "POST"])
+def shortLoan():
     msg = ""
+    v = ""
     if request.method == "POST":
-        if request.form["userid"] != "" and request.form["emailid"] != "" and request.form["password"] != "" and \
-                request.form["firstname"] != "" and request.form["lastname"] != "" and request.form["status"] != "" and \
-                request.form["types"] != "" and request.form["doj"] != "" and request.form["phonenumber"] != "":
-            userid = request.form["userid"]
-            emailid = request.form["emailid"]
-            password = request.form["password"]
-            firstname = request.form["firstname"]
-            lastname = request.form["lastname"]
-            status = request.form["status"]
-            types = request.form["types"]
-            doj = request.form["doj"]
-            phonenumber = request.form["phonenumber"]
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+            cpf_no = request.form["cpf_no"]
+            loan_amt = request.form["loan_amt"]
+            int_rate = request.form["int_rate"]
+            no_int = request.form["no_int"]
+            principal_amt = request.form["principal_amt"]
+            out_loan_amt = request.form["out_loan_amt"]
+            loan_disb_date = request.form["loan_disb_date"]
+            loan_type = "short term"
+            loan_id = str(cpf_no) + "st" + "".join(str(loan_disb_date).split("-"))
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
-            c.execute(
-                "INSERT INTO user_login VALUES('" + userid + "', '" + emailid + "' , '" + password + "', '" + firstname + "', '" + lastname + "', '" + status + "', '" + types + "',  '" + doj + "',  '" + phonenumber + "')")
-            msg = "Your account is created"
+            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
+            result = c.fetchone()
+            if result:
+                c.execute(
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
+                v = "valid"
+            else:
+                v = "invalid"
             conn.commit()
             conn.close()
 
-    return render_template("index.html", msg=msg)
+    return render_template("new_loan.html", v=v)
 
 
-@app.route("/index/login", methods=["GET", "POST"])
-def login():
-    msg = ""
-    if request.method == 'POST':
-        userid = request.form["userid"]
-        emailid = request.form["emailid"]
-        password = request.form["password"]
-        conn = sqlite3.connect("project.db")
-        c = conn.cursor()
-        c.execute(
-            "SELECT userid, emailid, password FROM user_login WHERE userid = '" + userid + "' and emailid = '" + emailid + "' and password = '" + password + "'")
-        r = c.fetchall()
-        for i in r:
-            if userid == i[0] and emailid == i[1] and password == i[2]:
-                session["logedin"] = True
-                session["userid"] = userid
-                return redirect(url_for("after_login"))
+# New long term loan
+@app.route("/new_loan/longLoan", methods=["GET", "POST"])
+def longLoan():
+    v = ""
+    if request.method == "POST":
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+            cpf_no = request.form["cpf_no"]
+            loan_amt = request.form["loan_amt"]
+            int_rate = request.form["int_rate"]
+            no_int = request.form["no_int"]
+            principal_amt = request.form["principal_amt"]
+            out_loan_amt = request.form["out_loan_amt"]
+            loan_disb_date = request.form["loan_disb_date"]
+            loan_type = "long term"
+            loan_id = str(cpf_no) + "lt" + "".join(str(loan_disb_date).split("-"))
+            conn = sqlite3.connect("project.db")
+            c = conn.cursor()
+            c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
+            result = c.fetchone()
+            if result:
+                c.execute(
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','" + loan_id + "')")
+                v = "valid"
             else:
-                msg = "Please Enter Valid Userid,Emailid and Password"
-    return render_template("index.html", msg=msg)
+                v = "invalid"
+            conn.commit()
+            conn.close()
 
-#After login functions
-@app.route("/after_login")
-def after_login():
-    return render_template("after_login.html")
-
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("login"))
+    return render_template("new_loan.html", v=v)
 
 
 if __name__ == '__main__':
