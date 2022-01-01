@@ -209,5 +209,25 @@ def longLoan():
     return render_template("new_loan.html", v=v)
 
 
+@app.route("/get_emi",methods = ["GET","POST"])
+def get_emi():
+    if request.method == "POST":
+        if request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["inst"] != "":
+            loan_amt = float(request.form["loan_amt"])
+            int_rate = request.form["int_rate"]
+            inst = int(request.form["inst"])
+            r = float(int_rate)/12/100
+            emi = (loan_amt * r * (1 + r) ** inst) / (((1 + r) ** inst) - 1)
+            for i in range(inst):
+                int_paid = r * loan_amt
+                principal_amt = emi - int_paid
+                outstanding_loan = loan_amt - principal_amt
+                print(int(outstanding_loan),principal_amt)
+                loan_amt = outstanding_loan
+
+
+    return render_template("get_emi.html",)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

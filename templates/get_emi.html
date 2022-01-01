@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Generate EMI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='get_emi.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <ul>
+        <li><a class="active" href="/after_login">Home</a></li>
+        <li><a href="logout">Logout</a></li>
+      </ul>
+    </nav>
+     <div class="logo-container">
+       <div class="logo">Logo</div>
+       <div class="image">
+         <div class="imageinline">
+           <div class="imagetagline" style="padding-top: 3%;"/><p>For The People </p>
+             <p id="bythepeople">By The People</p> </div>
+         <div class="card-content">
+      <div class="row">
+        <div class="column">
+          <div class="card">
+        <form action="{{ url_for('get_emi') }}" method="post">
+          <div class="inputslider">
+            <label>Loan Amount</label>
+         <input class='range__slider' id='slider' max='500000' min='10000' oninput='loan.value=slider.value' type='range' value='0' style="width:30em ;">
+         <input class='range__amount' name="loan_amt" id='loan' placeholder="Rupees" oninput='slider.value=loan.value' type='text' >
+         <label>Interest Rate</label>
+         <input class='range__slider' id='sliderr' max='20' min='0' oninput='amount.value=sliderr.value' type='range' value='10.8' style="width:30em ;">
+         <input class='range__amount' name= "int_rate" id='amount' oninput='sliderr.value=amount.value' type='text' value='10.8'>
+         <label>Installments</label>
+         <input class='range__slider' id='slider3' max='36' min='10' oninput='amount3.value=slider3.value' type='range' value='10' style="width:30em ;">
+         <input class='range__amount' name="inst" id='amount3' placeholder="Months" oninput='slider3.value=amount3.value' type='text' >
+         </div>
+
+         <div class="calculation">
+           <div class="writing">
+             <h2>
+               Equated Monthly EMI
+             </h2>
+               <button type="submit" value="submit">Submit</button>
+           </div>
+         </div>
+
+     </form>
+     </div>
+      </div>
+      </div>
+    </div>
+         </div>
+       </div>
+     </div>
+      </body>
+    </html>

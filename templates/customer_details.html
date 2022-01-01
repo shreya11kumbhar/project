@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en" dir="ltr">
+  <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,23 +11,25 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <title>Customer Details</title>
-</head>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <title>Customer Details</title>
+  </head>
 <body>
 <!-- Nav Bar -->
 <section>
 <div id="layer">
-    <nav>
-         <input type="checkbox" id="check">
+   <nav>
+      <input type="checkbox" id="check">
       <label for="check" class="checkbtn">
         <i class="fas fa-bars"></i>
       </label>
-        <label class="logo">LOGO</label>
-        <ul>
-          <li><a class="active" href="/after_login">Home</a></li>
-           <li><a class="active" href="/logout">Log Out</a></li>
-        </ul>
-      </nav>
+
+      <ul>
+        <li><a class="active" href="/after_login">Home</a></li>
+        <li><a href="logout">Logout</a></li>
+
+      </ul>
+    </nav>
     <!-- Form Buttons -->
     <div class="card-content">
 <div class="row">
@@ -46,8 +48,8 @@
   </div>
   </div>
   </div>
-
 </div>
+
 <!-- New Customer Registration -->
 <div id="contactForm" class="overlay">
      <span class="closebtn" id="closebtnid" onclick="closeForm()" title="Close Form">×</span>
