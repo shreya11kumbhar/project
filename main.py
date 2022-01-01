@@ -222,11 +222,10 @@ def get_emi():
                 int_paid = r * loan_amt
                 principal_amt = emi - int_paid
                 outstanding_loan = loan_amt - principal_amt
-                print(int(outstanding_loan),principal_amt)
                 loan_amt = outstanding_loan
 
 
-    return render_template("get_emi.html",)
+    return render_template("get_emi.html")
 
 
 if __name__ == '__main__':
