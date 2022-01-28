@@ -224,7 +224,6 @@ def get_emi():
                 outstanding_loan = loan_amt - principal_amt
                 loan_amt = outstanding_loan
 
-
     return render_template("get_emi.html")
 
 
