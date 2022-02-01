@@ -227,5 +227,6 @@ def get_emi():
     return render_template("get_emi.html")
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)
