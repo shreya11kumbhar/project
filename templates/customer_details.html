@@ -1,189 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='customer_details.css') }}">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- JavaScript and JQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-      <title>Customer Details</title>
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <body>
-<!-- Nav Bar -->
-<section>
-<div id="layer">
-   <nav>
-      <input type="checkbox" id="check">
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
 
-      <ul>
-        <li><a class="active" href="/after_login">Home</a></li>
-        <li><a href="logout">Logout</a></li>
+    <nav>
+        <input type="checkbox" id="check">
+        <label for="check" class="checkbtn">
+          <i class="fas fa-bars"></i>
+        </label>
 
-      </ul>
-    </nav>
-    <!-- Form Buttons -->
-    <div class="card-content">
-<div class="row">
-  <div class="column1">
-    <div class="card">
-      <img src="https://www.seekpng.com/png/full/138-1387775_login-to-do-whatever-you-want-login-icon.png" alt="">
-      <button  id="contact" class="openBtn" onclick="openForm()">New Customer</button>
+        <ul>
+           <li><a class="active" href="/after_login">Home</a></li>
+           <li><a href="logout">Logout</a></li>
+          <li><a href="#customer-form">New Customer</a></li>
+          <li>
+             <form>
+                <div class="search__container">
+                    <input class="search__input" name= "cpf_no" type="text" placeholder="Search Customer">
+                </div>
+             </form>
+        </li>
+
+
+        </ul>
+      </nav>
+       <div class="logo-container">
+         <div class="logo">Logo</div>
+         <div class="image">
+           <div class="imageinline">
+               <div class="container-main" id="customer-form">
+               <div class="container">
+
+          <h1 class="brand"><span> New Customer?? Enter Your Details Here!!</span></h1>
+
+          <div class="wrapper">
+
+              <!-- COMPANY INFORMATION -->
+              <div class="company-info">
+
+              </div>
+              <!-- End .company-info -->
+
+              <!-- CONTACT FORM -->
+              <div class="contact">
+                  <h3> </h3>
+
+                  <form id="contact-form">
+
+                      <p>
+                          <label>First Name</label>
+                          <input type="text" name="firstname" id="firstname" required>
+                      </p>
+                      <p>
+                          <label>Middle Name</label>
+                          <input type="text" name="middlename" id="middlename">
+                      </p>
+
+                      <p>
+                          <label>Last Name</label>
+                          <input type="text" name="lastname" id="lastname">
+                      </p>
+
+                      <p>
+                          <label>CPF Number</label>
+                          <input type="text" name="cpf_no" id="cpf_no" required>
+                      </p>
+                      <p>
+                          <label>Phone Number</label>
+                          <input type="text" name="phonenumber" id="phonenumber">
+                      </p>
+                      <p>
+                          <label>Email ID</label>
+                          <input type="email" name="emailid" id="emailid">
+                      </p>
+                      <p>
+                          <label>Date Of Birth</label>
+                          <input type="date" name="DOB" id="DOB">
+                      </p>
+
+
+                      <p>
+                          <label>Date Of Joining</label>
+                          <input type="date" name="DOJ" id="DOJ">
+                      </p>
+                      <p>
+                          <label>DOE</label>
+                          <input type="date" name="DOE" id="DOE">
+                      </p>
+
+
+
+
+                      <p class="full">
+                          <button type="submit" value="submit">Submit</button>
+                      </p>
+
+                  </form>
+                  <!-- End #contact-form -->
+              </div>
+              <!-- End .contact -->
+
+          </div>
+          <!-- End .wrapper -->
+      </div>
+      <!-- End .container -->
     </div>
-  </div>
+           </div>
+         </div>
+       </div>
 
-  <div class="column2">
-    <div class="card">
-      <img src="https://www.seekpng.com/png/full/138-1387775_login-to-do-whatever-you-want-login-icon.png" alt="">
-     <button   id="search" class="openBtn" onclick="openSearch()">Search Customer</button>
-    </div>
-  </div>
-  </div>
-  </div>
-</div>
 
-<!-- New Customer Registration -->
-<div id="contactForm" class="overlay">
-     <span class="closebtn" id="closebtnid" onclick="closeForm()" title="Close Form">×</span>
- <form action="{{ url_for('details') }}" method="post">
-      <table class="contactTable">
-          <tr>
-              <td>Firstname</td>
-              <td> <input name="firstname"   type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Middlename</td>
-              <td> <input name="middlename"   type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Lastname</td>
-              <td> <input name="lastname"  type="text" required /></td>
-          </tr>
-          <tr>
-              <td>CPF_No</td>
-              <td><input name="cpf_no" type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Date Of Birth</td>
-              <td> <input name="DOB" type="date" required /></td>
-          </tr>
-          <tr>
-              <td>Phone number</td>
-              <td> <input name="phonenumber"   type="text" required /></td>
-          </tr>
-          <tr>
-              <td>Email ID</td>
-              <td><input name="emailid" type="email" required /></td>
-          </tr>
-          <tr>
-              <td>Date Of Joining</td>
-              <td><input name="DOJ" type="date" required /></td>
-          </tr>
-          <tr>
-              <td>DOE</td>
-              <td> <input name="DOE" type="date" required /></td>
-          </tr>
-      </table>
-       <input class="formBtn" type="submit" value="submit" />
-      <input class="formBtn" type="reset"  value="reset"/>
-  </form>
-       <div class="msg">{{ msg }}</div>
-  </div>
-<!-- Customer Details Display -->
-<div id="mysearch" class="search-overlay">
-  <div class="overlay-content">
-    <form action="{{ url_for('search') }}" method="POST">
-      <input type="text" placeholder="Enter the customer's CPF number.." name="cpf_no">
-      <button id="searchBtn" onclick="search()" type="submit" value="search"><i class="fa fa-search"></i></button>
-    </form>
-  </div>
-</div>
 
-<div id="scrollTable">
-    <table id="customers">
-         {% for row in rows %}
-        <thead>
-        <tr>
-        <th>Firstname</th>
-        <th>Middlename</th>
-        <th>Lastname</th>
-        <th>CPF No</th>
-        <th>DOB</th>
-        <th>Email Id</th>
-        <th>Phone Number</th>
-        <th>DOJ</th>
-        <th>DOE</th>
-        <th>Total Share Amount</th>
-        <th>Total Loan Amount</th>
-        <th>Total St Amount</th>
-        </tr>
-        </thead>
-        <tr>
-           <td scope="row" data-label="Firstname">{{row["firstname"]}}</td>
-            <td scope="row" data-label="Middlename">{{row["middlename"]}}</td>
-            <td scope="row" data-label="Lastname">{{row["lastname"]}}</td>
-            <td scope="row" data-label="CPF No.">{{row["cpf_no"]}}</td>
-             <td scope="row" data-label="DOB">{{row["DOB"]}}</td>
-            <td scope ="row" data-label="Email">{{row["emailid"]}}</td>
-             <td scope="row" data-label="Phone Number">{{row["phonenumber"]}}</td>
-            <td scope="row" data-label="DOJ">{{row["DOJ"]}}</td>
-             <td scope="row" data-label="DOE">{{row["DOE"]}}</td>
-            <td scope="row" data-label="Total Share Amount">{{row["total_share_amt"]}}</td>
-             <td scope="row" data-label="Total LT Amount">{{row["total_lt_amt"]}}</td>
-            <td scope="row" data-label="Total ST Amount">{{row["total_st_amt"]}}</td>
-        </tr>
-        {% endfor %}
-        </table>
-</div>
-    </section>
-<script>
-<!-- Blur Background contactForm -->
-$("#contact").click(function(){
-  $('#layer').css("filter","blur(20px)");
-  });
-$("#closebtnid").click(function(){
-  $("#layer").css("filter","");
-});
-<!-- Display contactForm -->
-function openForm() {
-  document.getElementById("contact").style.display = "inline-block";
-}
-function closeForm() {
-  document.getElementById("contactForm").style.display = "none";
-}
-<!-- Display searchForm -->
-function openSearch() {
-  document.getElementById("mysearch").style.display = "inline-block";
-}
-function closeSearch() {
-  document.getElementById("mysearch").style.display = "none";
-}
-function search() {
-  document.getElementById("scrollTable").style.display = "inline-block";
-}
-function openForm() {
-  document.getElementById("scrollTable").style.display = "none";
-}
 
-<!-- ContactForm Animation -->
-    $(function () {
-  // contact form animations
-  $("#contact").click(function () {
-    $("#contactForm").fadeToggle();
-  });
-  $(document).mouseup(function (e) {
-    var container = $("#contactForm");
-  });
-});
-
-</script>
 </body>
 </html>
