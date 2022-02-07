@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Bank Login</title>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='new_loan.css') }}">
-    
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-<script>
-    function shortTerm(value){
-    var x;
-    x = value/10
+    <title>Loan</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js" integrity="sha512-FJ2OYvUIXUqCcPf1stu+oTBlhn54W0UisZB/TNrZaVMHHhYvLBV9jMbvJYtvDe5x/WVaoXZ6KB+Uqe5hT2vlyA==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     <link rel="stylesheet" href="{{ url_for('static', filename='new_loan.css') }}">
+    <script>
+
+      function shortTerm(value){
     if(value <=50000){
         document.getElementById("intRate").value="10.8";
         document.getElementById("inst").value="10";
-        document.getElementById("prinAmt").value=x;
+        document.getElementById("prinAmt").value="0";
         document.getElementById("outAmt").value=value;
     }
     else{
@@ -28,224 +24,213 @@
         alert("You have exceeded 50000!!!!");
     }
 }
-function longTerm(){
-    var x = document.getElementById("loan_amt").value;
-    var y = document.getElementById("tp").value;
-    var z = parseFloat(x/y);
-    if(x <=500000){
+function longTerm(value){
+    if(value <=500000){
         document.getElementById("intRate1").value="10.8";
-        document.getElementById("prinAmt1").value=Math.round(z);
-        document.getElementById("outAmt1").value=x;
+        document.getElementById("prinAmt1").value="0";
+        document.getElementById("outAmt1").value=value;
     }
     else{
         document.getElementById("intRate1").value="0";
+        document.getElementById("inst1").value="0";
         document.getElementById("prinAmt1").value="0";
         document.getElementById("outAmt1").value="0";
         alert("You have exceeded 500000!!!!");
     }
 }
-</script>
+
+    </script>
 </head>
-  <body>
-    <nav>
-      <input type="checkbox" id="check">
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
+<body>
+  <nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
 
-      <ul>
-         <li><a class="active" href="/after_login">Home</a></li>
-         <li><a class="active" href="/logout">Log Out</a></li>
-      </ul>
+    <ul>
+       <li><a class="active" href="/after_login">Home</a></li>
+      <li><a href="#checkEmi">Check Emi</a></li>
+      <li><a href="#loan">Loan</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+   <div class="logo-container">
+     <div class="logo">Logo</div>
+     <div class="image">
+       <div class="imageinline">
+  <div id="checkEmi" class="container" style="display: flex;margin-top: 2%;">
 
-
-    </nav>
-     <div class="logo-container">
-       <div class="logo">Logo</div>
-       <div class="image">
-         <div class="imageinline">
-           <div class="imagetagline" style="padding-top: 3%;"><p>For The People </p>
-             <p id="bythepeople">By The People</p> </div>
-
-           <div class="inlinecards">
-            <div class="card-content">
-              <div class="row">
-                <div class="column">
-                  <div class="card">
-
-                    <button type="button" class="shbtn" onclick="showshortermForm()" >Short Term Loan</button>
-
-
-                    <form id="formElement" style="display: none;"  action="{{ url_for('shortLoan') }}" method="post">
-                        <div class="form-outline mb-4 " >
-                            <input type="text" name="cpf_no" placeholder="Enter Customer ID" class="form-control form-control-lg" required/>
-                          </div>
-                      <div class="form-outline mb-4 " >
-                        <input type="text" name="loan_amt" placeholder="Enter Loan Amount" class="form-control form-control-lg" onkeyup="shortTerm(this.value);" required />
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="text" name="int_rate" id="intRate"placeholder="Rate of Interest" class="form-control form-control-lg" />
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="text" name="no_int" id="inst" placeholder="No. of Installments" class="form-control form-control-lg" />
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="text" name="principal_amt" id="prinAmt" placeholder="Principal amount" class="form-control form-control-lg" />
-                      </div>
-                      <div class="form-outline mb-4">
-                        <input type="text" name="out_loan_amt" id="outAmt" placeholder="Outstanding Loan amount"class="form-control form-control-lg" />
-                      </div>
-                      <div class="form-outline mb-4">
-                        <label class="form-label" >Loan Disbursement Date</label>
-                        <input type="date" id="today" name="loan_disb_date"  class="form-control form-control-lg" />
-                      </div>
-                       <div class="d-flex justify-content-center">
-                       <button type="submit"  value="submit" onclick="myPopup()"  class="btn" >Submit</button>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" value="cancel" class="btn cancel" onclick="closeshortermForm()">Close</button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-
-                <div class="column">
-                  <div class="card">
-                    <button type="button" class="shbtn" onclick="showlongtermForm()" >Long Term Loan</button>
-
-
-                    <form id="formElement1" style="display: none;" style="z-index: 20;" action="{{ url_for('longLoan') }}" method="post">
-                      <div class="form-outline mb-4 " >
-                        <input type="text" name="cpf_no" placeholder="Enter Customer ID"class="form-control form-control-lg" required/>
-                      </div>
-                      <div class="form-outline mb-4 " >
-                        <input type="text" name="loan_amt" id="loan_amt" placeholder="Enter Loan Amount"class="form-control form-control-lg" onkeyup="longTerm();" required/>
-                      </div>
-
-                       <div class="form-outline mb-4">
-                        <input type="text"  name="no_int" id="tp" placeholder="Enter Time Period" class="form-control form-control-lg" onkeyup="longTerm()"  required/>
-                      </div>
-
-                      <div class="form-outline mb-4">
-                        <input type="text" name="int_rate" id="intRate1" placeholder="Rate of Interest" class="form-control form-control-lg" />
-                      </div>
-
-                      <div class="form-outline mb-4">
-                         <input type="text" name="principal_amt" id="prinAmt1" placeholder="Principal Amount"class="form-control form-control-lg" />
-                      </div>
-
-                       <div class="form-outline mb-4">
-                         <input type="text" name="out_loan_amt" id="outAmt1" placeholder="Outstanding Loan Amount"class="form-control form-control-lg" />
-                      </div>
-
-                       <div class="form-outline mb-4">
-                        <label class="form-label">Loan Disbursement Date</label>
-                         <input type="date" name="loan_disb_date" id="today1" class="form-control form-control-lg" />
-                      </div>
-
-                      <div class="d-flex justify-content-center">
-                        <button type="submit" value="submit" onclick="myPopup()" class="btn"  >Submit</button>
-                      </div>
-                      <div class="d-flex justify-content-center">
-                        <button type="button" value="cancel" class="btn cancel" onclick="closelongtermForm()">Close</button>
-                      </div>
-                    </form>
-                  </div>
-
-                </div>
-              </div>
-            </div>
-             <div id="popup1" class="overlay">
-    <div class="popup">
-        <a class="close" href="#">&times;</a>
-        <div class="content">
-             {{v}}
+  <div class="col-sm-6 col-12 card" >
+        <H1>EMI Calculator</H1>
+        <form name="loan-form">
+        <div class='loanBlock'>
+            <h3>Loan Amount</h3>
+            <input type="text" id="amount"><br>
         </div>
-    </div>
-</div>
-            <div class="loaninfo">
-              <div class="innerloaninfo">
-                <div class="tableview">
-                <table>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                  <tr>
-                    <ul>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    <td><li>Account can be opened with a minimum of Rs.1000/- </li></td>
-                    </ul>
-                  </tr>
-                </table>
-              </div>
-              </div>
+         <div class='aprBlock'>
+            <h3>Interest Rate</h3>
+            <input type="text" name="apr" id="apr" ><br>
+         </div>
+          <div class='tenureBlock'>
+          <h3>Time Periods(yrs)</h3>
+         <input type="text" name="tenure" id="tenure"  ><br>
+         <br>
+          </div>
+          <div class="d-flex">
+        <button style="border-radius:2px" id="find" class="btn-sub">Find Emi</button>
+          </div>
+        </form>
 
-            </div>
+
+
+      </div>
+      <div class="col-sm-5 col-12pl-3 card">
+
+          <h1>Results</h1><br/>
+          <h3>Total EMI:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="emi"></span></h3>
+          <h3>Total Amount: &nbsp;&nbsp;<span id="totalAmt"></span></h3>
+          <h3>Total Interest: &nbsp;&nbsp;<span id="totalInt"></span></h3>
+          <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+
+        </div>
+
+  </div>
+
+
+  <div id="loan" class="container" style="display: flex;margin-top: 2%;">
+    <div class="col-sm-6 col-12 card" >
+          <h1>Short Term Loan</h1>
+          <form id="loan-form" action="{{ url_for('shortLoan') }}" method="post">
+            <div class='cpfBlock'>
+               <h4>CPF Number</h4>
+               <input type="text" name="cpf_no" id="cpf_no" required><br>
            </div>
+          <div class='loanBlock'>
+            <h4>Loan Amount</h4>
+            <input type="text" name="loan_amt" id="loan_amt" onkeyup="shortTerm(this.value);"><br>
+          </div>
+          <div class="column">
+          <div class='aprBlock'>
+            <h4>Interest Rate</h4>
+            <input type="text" name="int_rate" id="intRate" ><br>
+          </div>
+          <div class='tenureBlock'>
+              <h4>Time Periods(Months)</h4>
+             <input type="text" name="no_int" id="inst" ><br>
+          </div>
+          <div class='principleBlock'>
+            <h4>Principle Amount</h4>
+           <input type="text" name="principal_amt" id="prinAmt"><br>
+           <br>
+            </div>
+         </div>
+
+            <div class='outstandingBlock'>
+              <h4>Outstanding Loan Amount</h4>
+             <input type="text" name="out_loan_amt" id="outAmt"><br>
+             <br>
+            </div>
+           <div class='dateBlock'>
+               <h4>Loan Disbursement Date</h4>
+               <input type="date" name="loan_disb_date" id="today" >
+           </div>
+        <br>
+          <div class="d-flex">
+          <button style="border-radius:2px" type="submit" value="submit" onclick="myPopup()" class="st-emi">Submit</button>
+               <br>
+               <br>
+          </div>
+          </form>
+        </div>
+       <div class="col-sm-5 col-12pl-3 card">
+          <h1>Long Term Loan</h1>
+          <form id="loan-form1" action="{{ url_for('longLoan') }}" method="post">
+            <div class='cpfBlock'>
+               <h4>CPF Number</h4>
+               <input type="text" name="cpf_no"  required><br>
+           </div>
+          <div class='loanBlock'>
+            <h4>Loan Amount</h4>
+            <input type="text" name="loan_amt"  onkeyup="longTerm(this.value);"><br>
+          </div>
+          <div class="column">
+          <div class='aprBlock'>
+            <h4>Interest Rate</h4>
+            <input type="text" name="int_rate" id="intRate1" ><br>
+          </div>
+          <div class='tenureBlock'>
+              <h4>Time Periods(Months)</h4>
+             <input type="text" name="no_int" id="inst1" ><br>
+          </div>
+          <div class='principleBlock'>
+            <h4>Principle Amount</h4>
+           <input type="text" name="principal_amt" id="prinAmt1"><br>
+           <br>
+            </div>
+         </div>
+
+            <div class='outstandingBlock'>
+              <h4>Outstanding Loan Amount</h4>
+             <input type="text" name="out_loan_amt" id="outAmt1"><br>
+             <br>
+            </div>
+           <div class='dateBlock'>
+               <h4>Loan Disbursement Date</h4>
+               <input type="date" name="loan_disb_date" id="today1" >
+           </div>
+        <br>
+          <div class="d-flex">
+          <button style="border-radius:2px" type="submit" value="submit" onclick="myPopup1()" class="st-emi">Submit</button>
+               <br>
+               <br>
+          </div>
+          </form>
        </div>
-     </div>
 
 
-       <script type="text/javascript">
-      function showshortermForm() {
-          document.getElementById('formElement').style.display = 'block';
-      }
-      function closeshortermForm() {
-  document.getElementById("formElement").style.display = "none";
-}
-      function showlongtermForm() {
-          document.getElementById('formElement1').style.display = 'block';
-      }
-      function closelongtermForm() {
-  document.getElementById("formElement1").style.display = "none";
-}
+  <script>
 
-let today = new Date().toISOString().substr(0, 10);
+      let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#today").value = today;
-
 let today1 = new Date().toISOString().substr(0, 10);
 document.querySelector("#today1").value = today1;
-
  function myPopup(){
+  var frm = document.getElementsByName('loan-form1')[0];
+   frm.submit(); // Submit the form
+   frm.reset();  // Reset all form data
+   return false; // Prevent page refresh
   var msg = '{{v}}'
   if(msg == 'valid'){
-   alert('Form Successfully!!!');
+   alert('Form submitted Successfully!!!');
   }
   else{
-    alert('Enter Customer ID!!!!');
+    alert('Enter valid Customer ID!!!!');
   }
   }
-  </script>
+  function myPopup1(){
+  var frm = document.getElementsByName('loan-form1')[0];
+   frm.submit(); // Submit the form
+   frm.reset();  // Reset all form data
+   return false; // Prevent page refresh
+  var msg = '{{msg}}'
+  if(msg == 'valid'){
+   alert('Form submitted Successfully!!!');
+  }
+  else{
+    alert('Enter valid Customer ID!!!!');
+  }
+  }
+  function submitForm() {
+   var frm = document.getElementsByName('loan-form')[0];
+   frm.submit(); // Submit the form
+   frm.reset();  // Reset all form data
+   return false; // Prevent page refresh
+}
+function submitForm() {
 
-     </div>
-  </body>
+}
+  </script>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+ </body>
+</html>

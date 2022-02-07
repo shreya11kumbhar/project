@@ -7,7 +7,7 @@
 }
 body{
   font-family: montserrat;
-  
+
 }
 nav{
   background: #0082e6;
@@ -27,7 +27,7 @@ nav ul{
 }
 nav ul li{
   display: inline-block;
-  line-height: 40px;
+  line-height: 30px;
   margin: 0 5px;
 }
 nav ul li a{
@@ -36,10 +36,12 @@ nav ul li a{
   padding: 7px 13px;
   border-radius: 3px;
   text-transform: uppercase;
+  text-decoration: none;
 }
 a.active,a:hover{
   background: #1b9bff;
   transition: .5s;
+  text-decoration: none;
 }
 .checkbtn{
   font-size: 20px;
@@ -84,10 +86,13 @@ a.active,a:hover{
   }
   nav ul li a{
     font-size: 20px;
+    text-decoration: none;
   }
+
   a:hover,a.active{
     background: none;
     color: #0082e6;
+    text-decoration: none;
   }
   #check:checked ~ ul{
     left: 0;
@@ -97,6 +102,7 @@ a.active,a:hover{
   position: relative;
   width: 100%;
   background-color:whitesmoke;
+  /* background: transparent; */
   height: 60px;
   display: inline-block;
 }
@@ -108,12 +114,12 @@ a.active,a:hover{
   vertical-align: center;
   height:60px;
   font-weight: bold;
-  padding-top: 15px;
+  padding-top: 9px;
   text-align: center;
-  color:#0082e6; 
+  color:#0082e6;
 }
 .image{
-  background-image: url("https://www.nerdwallet.com/assets/blog/wp-content/uploads/2019/10/GettyImages-578269652-1920x1152.jpg");
+  background-image: url("https://images.unsplash.com/photo-1501167786227-4cba60f6d58f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -126,197 +132,254 @@ a.active,a:hover{
   height:45vh ;
   width:100% ;
   margin-top:25%;
- 
+
+}
+.imageinline1{
+  background-color:#0f9cfab6 ;
+  height:45vh ;
+  width:100% ;
+ margin-top: -3%;
+
 }
 .imagetagline{
  margin: 0 auto;
  margin-left: 35%;
-  
+
  color: white;
  font-size: 40px;
  font-weight: bold;
-} 
-#bythepeople{
-  margin-left: 20%;
-  padding-top: 10px;
-}
-.card-content{
-  padding-top: 7%;
-   
-}
-/* Float four columns side by side */
-.column {
-  float: left;
-  width: 30%;
-  padding: 0px 10px;
-  
 }
 
-/* Remove extra left and right margins, due to padding */
-.row {margin: 0px auto;
-  
-   margin-left: 30%;
- height:10vh ;
+
+
+
+img {
+   height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  height: 285px;
+  width: 285px;
 }
+body{
+  display: grid;
+  /* align-items: center;
+  justify-content: center;
+  align-content: center; */
+ /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;*/
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+
 }
+input{
+  width: 100%;
+  height: 40px;
+  color: black;
 
-/* Responsive columns */
-@media screen and (max-width: 800px) {
-  .row{
-    margin-top: 30%;
-    margin-left: 2%;
-    height: 30vh;
-  }
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 30px;
-  }
-  .loaninfo{
-    padding-top: 20px;
-  }
-   
 }
-
-/* Style the counter cards */
-.card {
-
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+.card{
+  background-color:#1572A1;
+  padding: 20px;
+   color: white;
+}
+h1{
   text-align: center;
- padding: 20px;
-  background:white;
 }
-
- 
- #formElement,#formElement1{
-  max-width: 500px;
-  padding: 30px;
-  background-color: white;
- 
+#emi{
+  background-color: rgb(10, 101, 117);
+  padding: 5px;
+  font-size: 17px;
+  margin-left: 3%;
  }
- #formElement input[type=text],#formElement1 input[type=text],#formElement input[type=date],#formElement1 input[type=date]{
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-  
+ #totalAmt{
+   background-color: rgb(160, 25, 1);
+  padding: 5px;
+  font-size: 17px;
+  margin-left: 3%;
  }
- #formElement .btn ,#formElement1 .btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
+ #totalInt{
+   background-color: rgb(175, 172, 0);
+   padding: 5px;
+   font-size: 17px;
+   margin-left: 3%;
+ }
+.option{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+label{
+  color:  #F0A384;
+
+}
+.password-result{
+  display: flex;
+  margin-bottom: 20px;
+}
+.btn{
+  background-color: #181934;
+  color:  #fff;
+  border: 0;
+
+}
+.btn-sub{
+  background-color: #181934;
+  color:  #fff;
+  border: 0;
+  padding: 10px 30px;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  margin-top: 10px;
+  border: 1px solid white;
+  display: flex;
+  margin: auto;
+  font-weight: bolder;
+
+}
+.button{
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  font-weight: bolder;
+}
+@media only screen and (min-width: 768px){
+  .card{
+    width: 100%;
+  }
+
+}
+.st-emi, .lt-emi{
+  background-color: #181934;
+  color:  #fff;
+  border: 0;
+  padding: 10px 30px;
+  letter-spacing: 3px;
+  text-transform: capitalize;
+  margin-top: 10px;
+  border: 1px solid white;
+  display: flex;
+  margin: auto;
+  font-weight: bolder;
+}
+  .st-btn, .lt-btn{
+    background-color: #181934;
+    color:  #fff;
+    border: 0;
+    padding: 10px 30px;
+    letter-spacing: 3px;
+    text-transform: capitalize;
+    margin-left: 20px;
+    margin-top: -8%;
+    border: 1px solid white;
+    display: flex;
+    font-weight: bolder;
+
+  }
+  .column{
+    display:flex;
+    width: 100%;
+    justify-content: safe;
+  }
+  .column input{
+    width: 100%;
+    margin-right:5px;
+  }
+.button{
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px;
+  font-weight: bolder;
+}
+
+@media only screen and (min-width: 768px){
+  .card{
+    width: 100%;
+  }
+
+}
+.inputGroup {
+  background-color: #fff;
+  display: block;
+  margin: 10px 0;
+  position: relative;
+
+}
+.inputGroup label {
+  padding: 10px 30px;
   width: 100%;
-  margin-bottom:10px;
-  opacity: 0.8;
-}
-.shbtn {
-  background-color: #1597E5;
-  color: white;
-  padding: 16px 20px;
-  border: none;
+  display: block;
+  text-align: left;
+  color: #3C454C;
   cursor: pointer;
-  width: 80%;
-  margin-bottom:10px;
-  opacity: 0.8;
- cursor: pointer;
-  transition: all 0.3s ease-out;
+  position: relative;
+  z-index: 2;
+  transition: color 200ms ease-in;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
-/* Add a red background color to the cancel button */
-#formElement .cancel, #formElement1 .cancel {
-  background-color: rgba(255, 0, 0, 0.63);
-}
-
-/* Add some hover effects to buttons */
-#formElement .btn:hover, .open-button:hover, #formElement1 .btn:hover, .open-button:hover {
-  opacity: 4;
-}
-
-.loaninfo{
-  
-  height: 90vh;
-  z-index: -100;
-}
-.innerloaninfo{
-position: absolute;
-background-color:white;
-height: 60vh;
- width: 90%;
- margin-left: 5.5%;
-z-index: -10;
-}
-table{
-  padding-top: 30px;
-  width: 60%;
-  margin: 0px auto;
-}
-td,tr{
-  padding: 16px;
-  font-size: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.7);
-  transition: opacity 500ms;
-  visibility: hidden;
+.inputGroup label:before {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  content: "";
+  background-color: #55b4eb;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale3d(1, 1, 1);
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
   opacity: 0;
+  z-index: -1;
 }
-.overlay:target {
-  visibility: visible;
+.inputGroup label:after {
+  width: 32px;
+  height: 30px;
+  content: "";
+  border: 2px solid #D1D7DC;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='32' viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.414 11L4 12.414l5.414 5.414L20.828 6.414 19.414 5l-10 10z' fill='%23fff' fill-rule='nonzero'/%3E%3C/svg%3E ");
+  background-repeat: no-repeat;
+  background-position: 2px 3px;
+  border-radius: 50%;
+  z-index: 2;
+  position: absolute;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 200ms ease-in;
+}
+.inputGroup input:checked ~ label {
+  color: #fff;
+}
+.inputGroup input:checked ~ label:before {
+  transform: translate(-50%, -50%) scale3d(56, 56, 1);
   opacity: 1;
 }
-
-.popup {
-  margin: 70px auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  width: 30%;
-  position: relative;
-  transition: all 5s ease-in-out;
+.inputGroup input:checked ~ label:after {
+  background-color: #54E0C7;
+  border-color: #54E0C7;
 }
-
-.popup h2 {
-  margin-top: 0;
-  color: #333;
-  font-family: Tahoma, Arial, sans-serif;
-}
-.popup .close {
+.inputGroup input {
+  width: 32px;
+  height: 32px;
+  order: 1;
+  z-index: 2;
   position: absolute;
-  top: 20px;
   right: 30px;
-  transition: all 200ms;
-  font-size: 30px;
-  font-weight: bold;
-  text-decoration: none;
-  color: #333;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  visibility: hidden;
 }
-.popup .close:hover {
-  color: #06D85F;
+.loancontainer{
+  margin-top: 13%;
 }
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
+.radio {
+  padding: 0 16px;
+  max-width: 550px;
+  margin: 50px auto;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 36px;
 }
 
-@media screen and (max-width: 700px){
-  .box{
-    width: 70%;
-  }
-  .popup{
-    width: 70%;
-  }
-}
+

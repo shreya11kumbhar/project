@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='customer_details.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='customer_details.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- JavaScript and JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
 </head>
 <body>
 
@@ -15,18 +20,18 @@
         </label>
 
         <ul>
-           <li><a class="active" href="/after_login">Home</a></li>
-           <li><a href="logout">Logout</a></li>
+            <li><a class="active" href="/after_login">Home</a></li>
+        <li><a href="logout">Logout</a></li>
           <li><a href="#customer-form">New Customer</a></li>
           <li>
-             <form>
-                <div class="search__container">
-                    <input class="search__input" name= "cpf_no" type="text" placeholder="Search Customer">
-                </div>
-             </form>
+            <div class="search-container">
+    <form action="{{ url_for('search') }}" method="post">
+      <input type="text" placeholder="Search.." name="cpf_no">
+      <button type="submit" onclick="search()" value="search"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
         </li>
-
-
+            <li> <a href="#scrollTable">View</a></li>
         </ul>
       </nav>
        <div class="logo-container">
@@ -50,7 +55,7 @@
               <div class="contact">
                   <h3> </h3>
 
-                  <form id="contact-form">
+                  <form id="contact-form" action="{{ url_for('details') }}" method="post">
 
                       <p>
                           <label>First Name</label>
@@ -92,12 +97,8 @@
                           <label>DOE</label>
                           <input type="date" name="DOE" id="DOE">
                       </p>
-
-
-
-
                       <p class="full">
-                          <button type="submit" value="submit">Submit</button>
+                          <button type="submit" value="submit" onclick="submitForm()">Submit</button>
                       </p>
 
                   </form>
@@ -110,12 +111,62 @@
       </div>
       <!-- End .container -->
     </div>
-           </div>
+               <div id="scrollTable">
+    <table id="customers">
+         {% for row in rows %}
+        <thead>
+        <tr>
+        <th>Firstname</th>
+        <th>Middlename</th>
+        <th>Lastname</th>
+        <th>CPF No</th>
+        <th>DOB</th>
+        <th>Email Id</th>
+        <th>Phone Number</th>
+        <th>DOJ</th>
+        <th>DOE</th>
+        <th>Total Share Amount</th>
+        <th>Total Loan Amount</th>
+        <th>Total St Amount</th>
+        </tr>
+        </thead>
+        <tr>
+           <td scope="row" data-label="Firstname">{{row["firstname"]}}</td>
+            <td scope="row" data-label="Middlename">{{row["middlename"]}}</td>
+            <td scope="row" data-label="Lastname">{{row["lastname"]}}</td>
+            <td scope="row" data-label="CPF No.">{{row["cpf_no"]}}</td>
+             <td scope="row" data-label="DOB">{{row["DOB"]}}</td>
+            <td scope ="row" data-label="Email">{{row["emailid"]}}</td>
+             <td scope="row" data-label="Phone Number">{{row["phonenumber"]}}</td>
+            <td scope="row" data-label="DOJ">{{row["DOJ"]}}</td>
+             <td scope="row" data-label="DOE">{{row["DOE"]}}</td>
+            <td scope="row" data-label="Total Share Amount">{{row["total_share_amt"]}}</td>
+             <td scope="row" data-label="Total LT Amount">{{row["total_lt_amt"]}}</td>
+            <td scope="row" data-label="Total ST Amount">{{row["total_st_amt"]}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+</div>
+
          </div>
        </div>
 
 
 
-
+<script>
+    function search() {
+  document.getElementById("scrollTable").style.display = "inline-block";
+   document.getElementById('scrollTable').scrollIntoView();
+}
+function search() {
+  document.getElementById("scrollTable").style.display = "none";
+}
+function submitForm() {
+   var frm = document.getElementsByName('contact-form')[0];
+   frm.submit(); // Submit the form
+   frm.reset();  // Reset all form data
+   return false; // Prevent page refresh
+}
+</script>
 </body>
 </html>

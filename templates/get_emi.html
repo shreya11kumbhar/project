@@ -34,107 +34,59 @@
      <div class="logo-container">
        <div class="logo">Logo</div>
        <div class="image">
+            <input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search for due dates.." title="Type in a due date">
          <div class="imageinline">
-           <div class="imagetagline" style="padding-top: 3%;"/><p>For The People </p>
-             <p id="bythepeople">By The People</p> </div>
-         <div class="card-content">
-      <div class="row">
-        <div class="column">
-          <div class="card">
-        <form action="{{ url_for('get_emi') }}" method="post">
-          <div class="inputslider">
-            <label>Loan Amount</label>
-         <input class='range__slider' id='slider' max='500000' min='10000' oninput='loan.value=slider.value' type='range' value='0' style="width:30em ;">
-         <input class='range__amount' name="loan_amt" id='loan' placeholder="Rupees" oninput='slider.value=loan.value' type='text' >
-         <label>Interest Rate</label>
-         <input class='range__slider' id='sliderr' max='20' min='0' oninput='amount.value=sliderr.value' type='range' value='10.8' style="width:30em ;">
-         <input class='range__amount' name= "int_rate" id='amount' oninput='sliderr.value=amount.value' type='text' value='10.8'>
-         <label>Installments(Months)</label>
-         <input class='range__slider' id='slider3' max='36' min='10' oninput='amount3.value=slider3.value' type='range' value='10' style="width:30em ;">
-         <input class='range__amount' name="inst" id='amount3' placeholder="Months" oninput='slider3.value=amount3.value' type='text' >
-         </div>
-
-         <div class="calculation">
-           <div class="writing">
-             <h2>
-               Equated Monthly EMI
-             </h2>
-               <button type="submit" value="submit">Submit</button>
-           </div>
-         </div>
-
-     </form>
-     </div>
-              </div>
-            </div>
-          <table class="container" >
-	<thead>
-		<tr>
-			<th><h1>Installments</h1></th>
-			<th><h1>Principal Amount</h1></th>
-			<th><h1>Interest Paid</h1></th>
-      <th><h1>EMI</h1><h1>(Equated Monthly Installments)</h1></th>
-			<th><h1>Total Payment</h1></th>
-      <th><h1>Outsatanding Loan</h1></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>1</td>
-			<td>9518</td>
-			<td>6369</td>
-      <td>6369</td>
-			<td>013250</td>
-      <td>013250</td>
-		</tr>
-		<tr>
-			<td>2</td>
-			<td>7326</td>
-			<td>10437</td>
-      <td>6369</td>
-			<td>005122</td>
-      <td>013250</td>
-		</tr>
-		<tr>
-			<td>3</td>
-			<td>4162</td>
-			<td>5327</td>
-      <td>6369</td>
-			<td>002434</td>
-      <td>013250</td>
-		</tr>
-    <tr>
-			<td>4</td>
-			<td>36514</td>
-			<td>2961</td>
-      <td>6369</td>
-			<td>001210</td>
-      <td>013250</td>
-		</tr>
-    <tr>
-			<td>5</td>
-			<td>2002</td>
-			<td>4135</td>
-      <td>6369</td>
-			<td>004619</td>
-      <td>013250</td>
-		</tr>
-    <tr>
-			<td>6</td>
-			<td>4623</td>
-			<td>3486</td>
-      <td>6369</td>
-			<td>003152</td>
-      <td>013250</td>
-		</tr>
-	</tbody>
-</table>
-
-
+    <table id="myTable">
+        <thead>
+        <tr id="Header">
+        <th>CPF No</th>
+        <th>Loan Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Due Date</th>
+        <th>Emi</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        </thead>
+        </tr>
+         {% for row in rows %}
+        <tr>
+             <td scope="row" data-label="CPF No.">{{row[0]}}</td>
+             <td scope="row" data-label="Loan Id">{{row[1]}}</td>
+            <td scope="row" data-label="Firstname">{{row[2]}}</td>
+            <td scope="row" data-label="Lastname">{{row[3]}}</td>
+            <td scope="row" data-label="Due Date">{{row[4]}}</td>
+            <td scope="row" data-label="Emi">{{row[5]}}</td>
+            <td scope ="row" data-label="Email">{{row[6]}}</td>
+            <td scope="row" data-label="Phone Number">{{row[7]}}</td>
+        </tr>
+        {% endfor %}
+        </table>
     </div>
          </div>
        </div>
      </div>
 
       </body>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[4];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+</script>
     </html>

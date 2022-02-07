@@ -1,5 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
+from django import db
+from datetime import date, timedelta
+from dateutil.relativedelta import relativedelta
 
 
 app = Flask(__name__)
@@ -64,11 +67,6 @@ def after_login():
     return render_template("after_login.html")
 
 
-# logout
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for("login"))
 
 
 # Customer Details
@@ -152,7 +150,7 @@ def shortLoan():
     msg = ""
     v = ""
     if request.method == "POST":
-        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != ""  and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
             cpf_no = request.form["cpf_no"]
             loan_amt = request.form["loan_amt"]
             int_rate = request.form["int_rate"]
@@ -160,8 +158,18 @@ def shortLoan():
             principal_amt = request.form["principal_amt"]
             out_loan_amt = request.form["out_loan_amt"]
             loan_disb_date = request.form["loan_disb_date"]
-            loan_type = "short term"
-            loan_id = str(cpf_no) + "st" + "".join(str(loan_disb_date).split("-"))
+            loan_type = "st"
+            from_date = request.form["loan_disb_date"]
+            days = date.today() + timedelta(days=+30)
+            due_date = str(days)
+            future_date = date.today() + relativedelta(months=+10)
+            to_date = str(future_date)
+            r = float(int_rate) / 12 / 100
+            x = int((int(loan_amt) * r * (1 + r) ** int(no_int)) / (((1 + r) ** int(no_int)) - 1))
+            y = int(r * int(loan_amt))
+            emi = str(x)
+            int_amt = str(y)
+            loan_id = str(cpf_no) + str(loan_type) + "".join(str(loan_disb_date).split("-"))
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
@@ -169,6 +177,8 @@ def shortLoan():
             if result:
                 c.execute(
                     "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
+                c.execute(
+                    "INSERT INTO generate_emi VALUES('" + loan_id + "','" + cpf_no + "'  , '" + principal_amt + "','" + int_amt + "' ,'" + out_loan_amt + "' , '" + from_date + "','" + to_date + "','" + emi + "','" + no_int + "','"+due_date+"')")
                 v = "valid"
             else:
                 v = "invalid"
@@ -181,9 +191,9 @@ def shortLoan():
 # New long term loan
 @app.route("/new_loan/longLoan", methods=["GET", "POST"])
 def longLoan():
-    v = ""
+    msg = ""
     if request.method == "POST":
-        if request.form["cpf_no"] != "" and request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
+        if request.form["cpf_no"] != "" and request.form["loan_amt"] != ""  and request.form["int_rate"] != "" and request.form["no_int"] != "" and request.form["principal_amt"] != "" and request.form["out_loan_amt"] != "" and request.form["loan_disb_date"] != "":
             cpf_no = request.form["cpf_no"]
             loan_amt = request.form["loan_amt"]
             int_rate = request.form["int_rate"]
@@ -191,42 +201,59 @@ def longLoan():
             principal_amt = request.form["principal_amt"]
             out_loan_amt = request.form["out_loan_amt"]
             loan_disb_date = request.form["loan_disb_date"]
-            loan_type = "long term"
-            loan_id = str(cpf_no) + "lt" + "".join(str(loan_disb_date).split("-"))
+            from_date = request.form["loan_disb_date"]
+            days = date.today() + timedelta(days=+30)
+            due_date = str(days)
+            future_date = date.today() + relativedelta(months=+int(no_int))
+            to_date = str(future_date)
+            loan_type = "lt"
+            loan_id = str(cpf_no) + str(loan_type) + "".join(str(loan_disb_date).split("-"))
+            r = float(int_rate)/12/100
+            x = int((int(loan_amt) * r * (1 + r) ** int(no_int)) / (((1 + r) ** int(no_int)) - 1))
+            y = int(r * int(loan_amt))
+            emi = str(x)
+            int_amt = str(y)
             conn = sqlite3.connect("project.db")
             c = conn.cursor()
             c.execute("""SELECT cpf_no FROM customer_details WHERE cpf_no=?""", (cpf_no,))
             result = c.fetchone()
             if result:
                 c.execute(
-                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','" + loan_id + "')")
-                v = "valid"
+                    "INSERT INTO loan_details VALUES('" + cpf_no + "' , '" + loan_amt + "' ,'" + int_rate + "','" + no_int + "' , '" + principal_amt + "' ,'" + out_loan_amt + "' , '" + loan_disb_date + "','" + loan_type + "','"+loan_id+"')")
+                c.execute(
+                    "INSERT INTO generate_emi VALUES('" + loan_id + "','" + cpf_no + "'  , '" + principal_amt + "','"+int_amt+"' ,'" + out_loan_amt + "' , '" + from_date + "','" + to_date + "','"+emi+"','" + no_int + "','"+due_date+"')")
+                msg = "valid"
             else:
-                v = "invalid"
+                msg = "invalid"
             conn.commit()
             conn.close()
 
-    return render_template("new_loan.html", v=v)
+    return render_template("new_loan.html", msg=msg)
 
 
 @app.route("/get_emi",methods = ["GET","POST"])
 def get_emi():
-    if request.method == "POST":
-        if request.form["loan_amt"] != "" and request.form["int_rate"] != "" and request.form["inst"] != "":
-            loan_amt = float(request.form["loan_amt"])
-            int_rate = request.form["int_rate"]
-            inst = int(request.form["inst"])
-            r = float(int_rate)/12/100
-            emi = (loan_amt * r * (1 + r) ** inst) / (((1 + r) ** inst) - 1)
-            for i in range(inst):
-                int_paid = r * loan_amt
-                principal_amt = emi - int_paid
-                outstanding_loan = loan_amt - principal_amt
-                loan_amt = outstanding_loan
+    rows = []
+    conn = sqlite3.connect("project.db")
+    c = conn.cursor()
+    c.execute("SELECT g.cpf_no,g.loan_id,c.firstname,c.lastname,g.due_date,g.emi,c.emailid,c.phonenumber FROM generate_emi g INNER JOIN customer_details c ON g.cpf_no=c.cpf_no ")
+    rows = c.fetchall()
+    for r in rows:
+        for i in r:
+            print(i,end=" ")
+    conn.commit()
+    conn.close()
+    return render_template("get_emi.html",rows=rows)
 
-    return render_template("get_emi.html")
 
+# logout
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+db.connections.close_all()
