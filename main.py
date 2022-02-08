@@ -114,7 +114,7 @@ def search():
             for i in r:
                 print(i)
         c.execute(
-            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='short term' and c.cpf_no = '"+cpf_no+"' ")
+            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='st' and c.cpf_no = '"+cpf_no+"' ")
         st_loan_amt = (c.fetchall())
         total_st_amt = 0
         total_share_amt = 0
@@ -124,7 +124,7 @@ def search():
                 total_st_amt += i[j]
         print(total_st_amt)
         c.execute(
-            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='long term' and c.cpf_no = '" + cpf_no + "' ")
+            "SELECT l.loan_amt FROM loan_details l INNER JOIN customer_details c ON l.cpf_no=c.cpf_no WHERE l.loan_type='lt' and c.cpf_no = '" + cpf_no + "' ")
         lt_loan_amt = (c.fetchall())
         total_lt_amt = 0
         for i in lt_loan_amt:
@@ -244,6 +244,35 @@ def get_emi():
     conn.commit()
     conn.close()
     return render_template("get_emi.html",rows=rows)
+
+
+@app.route("/receive_emi",methods=["GET", "POST"])
+def receive_emi():
+    conn = sqlite3.connect("project.db")
+    c = conn.cursor()
+    c.execute(
+            "SELECT g.cpf_no,g.loan_id,c.firstname,c.lastname,g.due_date,g.emi,c.emailid,c.phonenumber FROM generate_emi g INNER JOIN customer_details c ON g.cpf_no=c.cpf_no ORDER BY g.due_date ")
+    rows = c.fetchall()
+    conn.commit()
+    conn.close()
+    return render_template("receive_emi.html",rows=rows)
+
+
+@app.route("/receive_emi/payment",methods=["GET", "POST"])
+def payment():
+    if request.method == "POST":
+        if request.form["cpf_no"] != "" and request.form["loan_type"] != "":
+            cpf_no = request.form["cpf_no"]
+            loan_type = request.form["loan_type"]
+            conn = sqlite3.connect("project.db")
+            c = conn.cursor()
+            c.execute(
+                "SELECT g.cpf_no,l.loan_type,g.emi FROM generate_emi g INNER JOIN loan_details l ON g.cpf_no=c.cpf_no where cpf_no = '"+cpf_no+"',loan_type='"+loan_type+"'")
+            rows = c.fetchall()
+            conn.commit()
+            conn.close()
+
+        return render_template("receive_emi.html",rows=rows)
 
 
 # logout

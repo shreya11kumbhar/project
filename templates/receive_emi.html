@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Receive EMI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='receive_emi.css') }}">
+       <link rel="shortcut icon" type="image/x-icon" href="https://production-assets.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://production-assets.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+      <script>
+  window.console = window.console || function(t) {};
+</script>
+
+
+
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+      <ul>
+        <li><a class="active" href="/after_login">Home</a></li>
+        <li><a class="active" href="/payment">Payment</a></li>
+        <li><a href="logout">Logout</a></li>
+      </ul>
+    </nav>
+     <div class="logo-container">
+       <div class="logo">Logo</div>
+       <div class="image">
+            <input type="text"  id="myInput" onkeyup="myFunction()" placeholder="Search for cpf_no.." title="Type in a cpf_no">
+         <div class="imageinline">
+    <table id="myTable">
+        <thead>
+        <tr id="Header">
+        <th>CPF No</th>
+        <th>Loan Id</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Due Date</th>
+        <th>Emi</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+            <th>Payment</th>
+        </thead>
+        </tr>
+         {% for row in rows %}
+        <tr>
+             <td scope="row" data-label="CPF No.">{{row[0]}}</td>
+             <td scope="row" data-label="Loan Id">{{row[1]}}</td>
+            <td scope="row" data-label="Firstname">{{row[2]}}</td>
+            <td scope="row" data-label="Lastname">{{row[3]}}</td>
+            <td scope="row" data-label="Due Date">{{row[4]}}</td>
+            <td scope="row" data-label="Emi">{{row[5]}}</td>
+            <td scope ="row" data-label="Email">{{row[6]}}</td>
+            <td scope="row" data-label="Phone Number">{{row[7]}}</td>
+        {% endfor %}
+        </tr>
+        </table>
+
+    </div>
+         </div>
+       </div>
+     </div>
+
+      </body>
+<script>
+    function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+
+</script>
+    </html>

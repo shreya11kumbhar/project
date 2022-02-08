@@ -1,0 +1,184 @@
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+  }
+  body{
+    font-family: montserrat;
+
+  }
+  nav{
+    background: #0082e6;
+    height: 40px;
+    width: 100%;
+  }
+  label.logo{
+    color: white;
+    font-size: 35px;
+    line-height: 40px;
+    padding: 0 100px;
+    font-weight: bold;
+  }
+  nav ul{
+    float: right;
+    margin-right: 20px;
+  }
+  nav ul li{
+    display: inline-block;
+    line-height: 30px;
+    margin: 0 5px;
+  }
+  nav ul li a{
+    color: white;
+    font-size: 17px;
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  a.active,a:hover{
+    background: #1b9bff;
+    transition: .5s;
+  }
+  .checkbtn{
+    font-size: 20px;
+    color: white;
+    float: right;
+    line-height: 40px;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+  }
+  #check{
+    display: none;
+  }
+  @media (max-width: 952px){
+    label.logo{
+      font-size: 30px;
+      padding-left: 50px;
+    }
+    nav ul li a{
+      font-size: 16px;
+    }
+  }
+  @media (max-width: 858px){
+    .checkbtn{
+      display: block;
+    }
+    ul{
+      position: fixed;
+      width: 100%;
+      height: 100vh;
+      background: #2c3e50;
+      top: 90px;
+      left: -100%;
+      text-align: center;
+      transition: all .5s;
+     z-index: 1;
+    }
+    nav ul li{
+      display: block;
+      margin: 50px 0;
+      line-height: 30px;
+    }
+    nav ul li a{
+      font-size: 20px;
+    }
+    a:hover,a.active{
+      background: none;
+      color: #0082e6;
+    }
+    #check:checked ~ ul{
+      left: 0;
+    }
+  }
+  .logo-container{
+    position: relative;
+    width: 100%;
+    background-color:whitesmoke;
+    height: 60px;
+    display: inline-block;
+  }
+
+  .logo-container .logo{
+    margin: 0 auto;
+    width: 25%;
+    font-size: 40px;
+    vertical-align: center;
+    height:60px;
+    font-weight: bold;
+    padding-top: 15px;
+    text-align: center;
+    color:#0082e6;
+  }
+  .image{
+    background-image: url("https://media-exp1.licdn.com/dms/image/C561BAQH1l2yHZHpqIg/company-background_10000/0/1585904699853?e=2159024400&v=beta&t=rbqkt7chY_ZFLYcpotYjkTyBJn5NudL3mtG4ylTYRo4");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    margin-top: 0%;
+    width: 100%;
+    height:80vh;
+  }
+  .imageinline{
+    background-color:#0f9cfab6 ;
+    height:45vh ;
+    width:100% ;
+    margin-top:8%;
+
+  }
+  .imagetagline{
+   margin: 0 auto;
+   margin-left: 35%;
+
+   color: white;
+   font-size: 40px;
+   font-weight: bold;
+  }
+  #bythepeople{
+    margin-left: 20%;
+    padding-top: 10px;
+  }
+  #myInput {
+  background-image: url('/css/searchicon.png');
+ /* background-position: 10px 10px;*/
+  background-repeat: no-repeat;
+  width: 60%;
+  height: 10%;
+  margin-left: 20%;
+  align: center;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-top: 15%;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+  margin-top: 0%;
+}
+
+#myTable th{
+ background-color: #1A1A40;
+ color: #ddd;
+}
+
+#myTable th, #myTable td {
+  border: 2px solid #1A1A40;
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #1A1A40;
+  color: #1A1A40;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #ddd;
+  color: #1A1A40;
+}
