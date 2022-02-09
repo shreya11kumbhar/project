@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='payment.css') }}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" id="check">
+      <label for="check" class="checkbtn">
+        <i class="fas fa-bars"></i>
+      </label>
+
+      <ul>
+        <li><a class="active" href="/after_login">Home</a></li>
+        <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        <li><a href="index/login">Login</a></li>
+      </ul>
+    </nav>
+     <div class="logo-container">
+       <div class="logo">Logo</div>
+     </div>
+  <div class="form">
+      <div class="title">Welcome</div>
+      <div class="input-container ic1">
+        <input id="firstname" class="input" type="text" placeholder="First Name " />
+        <label for="firstname" class="placeholder">First name</label>
+      </div>
+      <div class="input-container ic2">
+        <input id="lastname" class="input" type="text" placeholder=" " />
+        <label for="lastname" class="placeholder">Last name</label>
+      </div>
+      <div class="input-container ic2">
+        <input id="email" class="input" type="text" placeholder=" " />
+        <label for="email" class="placeholder">Email</>
+      </div>
+      <button type="submit" class="submit">submit</button>
+    </div>
+
+      </body>
+    </html>

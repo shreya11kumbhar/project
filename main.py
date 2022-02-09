@@ -258,21 +258,9 @@ def receive_emi():
     return render_template("receive_emi.html",rows=rows)
 
 
-@app.route("/receive_emi/payment",methods=["GET", "POST"])
+@app.route("/payment",methods=["GET", "POST"])
 def payment():
-    if request.method == "POST":
-        if request.form["cpf_no"] != "" and request.form["loan_type"] != "":
-            cpf_no = request.form["cpf_no"]
-            loan_type = request.form["loan_type"]
-            conn = sqlite3.connect("project.db")
-            c = conn.cursor()
-            c.execute(
-                "SELECT g.cpf_no,l.loan_type,g.emi FROM generate_emi g INNER JOIN loan_details l ON g.cpf_no=c.cpf_no where cpf_no = '"+cpf_no+"',loan_type='"+loan_type+"'")
-            rows = c.fetchall()
-            conn.commit()
-            conn.close()
-
-        return render_template("receive_emi.html",rows=rows)
+    return render_template("payment.html")
 
 
 # logout
